@@ -1,4 +1,7 @@
 .header {
   margin-top: 45px;
   max-height: 74px;
+  border-bottom:solid;
+  border-radius:1px;
+  border-color:#545454;
 }
