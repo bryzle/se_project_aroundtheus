@@ -3,9 +3,8 @@
   border-bottom: solid;
   border-radius: 1px;
   border-color: rgba(84, 84, 84, 0.7);
-  border: 0;
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 520px) {
   .header {
     padding-left: 32px;
   }
