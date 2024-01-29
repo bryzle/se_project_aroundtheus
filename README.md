@@ -25,3 +25,5 @@ Good luck and have fun!
 Project 3 Around the US is the third project of the Tripleten Software engineering program. We learned about grid layouts and learned about how to make webpages more responsive. We've created a webpage that consist of a header, profile description, cards, and footer. The profile description and cards are responsive using grid and flexbox display. Hope you enjoy the design of the layout!
 
 Video Link:https://drive.google.com/file/d/1aTqedMfVCJOwWoMjXwLELXZQ7Qy_KQ-Z/view?usp=sharing
+
+Github Link: https://github.com/bryzle/se_project_aroundtheus
