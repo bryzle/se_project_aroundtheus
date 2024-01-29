@@ -4,13 +4,23 @@
   border-radius: 1px;
   border-color: rgba(84, 84, 84, 0.7);
 }
+
+.header__logo {
+  margin-bottom: 41px;
+}
+
 @media screen and (max-width: 520px) {
   .header {
-    padding-left: 32px;
+    max-height: 56px;
+    margin-top: 28px;
+    max-width: 320px;
+    overflow-x: hidden;
   }
 
   .header__logo {
     max-width: 126px;
     max-height: 24px;
+    margin-bottom: 32px;
+    padding-left: 27px;
   }
 }
