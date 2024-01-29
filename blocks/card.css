@@ -1,7 +1,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  border-radius: 10px 10px 0 0;
+  border-radius: 10px;
   list-style: none;
   overflow: hidden;
 }
@@ -28,6 +28,7 @@
   font-family: Inter, Arial, Helvetica, sans-serif;
   font-weight: 900;
   line-height: 29.05px;
+  max-width: 219px;
   font-size: 24px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -41,4 +42,9 @@
   height: 18px;
   border: 0;
   padding: 0;
+  overflow: hidden;
+}
+
+.card__like-button:hover {
+  cursor: pointer;
 }

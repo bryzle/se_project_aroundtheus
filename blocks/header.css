@@ -1,7 +1,17 @@
 .header {
   margin-top: 45px;
-  max-height: 74px;
   border-bottom: solid;
   border-radius: 1px;
   border-color: rgba(84, 84, 84, 0.7);
+  border: 0;
+}
+@media screen and (max-width: 320px) {
+  .header {
+    padding-left: 32px;
+  }
+
+  .header__logo {
+    max-width: 126px;
+    max-height: 24px;
+  }
 }
