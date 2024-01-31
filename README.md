@@ -26,4 +26,4 @@ Project 3 Around the US is the third project of the Tripleten Software engineeri
 
 Video Link:https://drive.google.com/file/d/1aTqedMfVCJOwWoMjXwLELXZQ7Qy_KQ-Z/view?usp=sharing
 
-Github Link: https://github.com/bryzle/se_project_aroundtheus
+Github Link: https://bryzle.github.io/se_project_aroundtheus/
