@@ -69,6 +69,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 400px;
 }
 
 .profile__image {
@@ -82,6 +83,8 @@
 
 @media screen and (max-width: 520px) {
   .profile {
+    display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
   }
 
