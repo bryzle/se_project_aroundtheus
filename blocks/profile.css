@@ -52,8 +52,8 @@
   font-weight: 500;
   grid-area: title;
   margin: 0;
-  max-width: 373px;
-  text-overflow: ellipsis;
+  max-width: 500px;
+
   white-space: nowrap;
   overflow: hidden;
 }

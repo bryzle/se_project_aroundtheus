@@ -21,6 +21,10 @@
     padding: 0;
     max-width: 282px;
     max-height: 14px;
+  }
+
+  .footer__copyright {
+    width: 320px;
     font-size: 14px;
     line-height: 16.94px;
   }
