@@ -53,7 +53,7 @@
   grid-area: title;
   margin: 0;
   max-width: 500px;
-  text-overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -89,12 +89,15 @@
   }
 
   .profile__info {
+    display: flex;
+    flex-wrap: wrap;
     width: 100%;
     border: 1px;
     margin-left: 19px;
     margin-right: 19px;
     justify-content: center;
     max-width: 320px;
+    row-gap: 14px;
   }
 
   .profile__description {
@@ -124,7 +127,6 @@
     max-width: 196px;
     font-size: 22px;
     line-height: 26.63px;
-    margin-bottom: 14px;
   }
 
   .profile__image {
