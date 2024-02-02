@@ -11,10 +11,10 @@
 
 @media screen and (max-width: 520px) {
   .header {
-    max-height: 56px;
     margin-top: 28px;
     max-width: 320px;
     overflow-x: hidden;
+    border-radius: 1px;
   }
 
   .header__logo {
