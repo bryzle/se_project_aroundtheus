@@ -1,7 +1,26 @@
 .header {
   margin-top: 45px;
-  max-height: 74px;
-  border-bottom:solid;
-  border-radius:1px;
-  border-color:#545454;
+  border-bottom: solid;
+  border-radius: 1px;
+  border-color: rgba(84, 84, 84, 0.7);
+}
+
+.header__logo {
+  margin-bottom: 41px;
+}
+
+@media screen and (max-width: 520px) {
+  .header {
+    margin-top: 28px;
+    max-width: 320px;
+    overflow-x: hidden;
+    border-radius: 1px;
+  }
+
+  .header__logo {
+    max-width: 126px;
+    max-height: 24px;
+    margin-bottom: 32px;
+    padding-left: 27px;
+  }
 }
