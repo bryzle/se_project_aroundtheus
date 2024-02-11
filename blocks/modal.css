@@ -13,7 +13,7 @@
   padding: 0 19px;
 }
 
-.modal__open {
+.modal_open {
   display: flex;
 }
 
@@ -24,11 +24,7 @@
   position: relative;
   display: flex;
   max-width: 470px;
-  max-height: 370px;
-}
-
-.modal_opened {
-  display: flex;
+  max-height: 330px;
 }
 
 .modal__close {
@@ -68,7 +64,7 @@
   font-weight: 400;
   line-height: 17px;
   max-height: 27px;
-  width: 360px;
+  width: 358px;
   margin-bottom: 48px;
   border: none;
   border-bottom: solid;
@@ -83,7 +79,7 @@
   font-weight: 400;
   line-height: 22px;
   width: 360px;
-  max-height: 56px;
+  height: 50.15px;
   border-radius: 2px;
   text-align: center;
   background-color: #000000;
