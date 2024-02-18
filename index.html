@@ -45,7 +45,8 @@
         <p class="footer__copyright">© 2022 Around The U.S.</p>
       </footer>
     </div>
-    <div class="modal" id="profile-edit-modal">
+    <!-- Edit Modal-->
+    <div class="modal" id="edit-modal">
       <div class="modal__container">
         <button
           class="modal__close"
@@ -57,14 +58,14 @@
           <input
             type="text"
             name="name"
-            class="modal__input"
+            class="modal__input modal__input_type_name"
             id="profile-name-input"
             placeholder="Jacques-cousteau"
           />
           <input
             type="text"
             name="description"
-            class="modal__input"
+            class="modal__input modal__input_type_description"
             id="profile-description-input"
             placeholder="Explorer"
           />
@@ -72,8 +73,45 @@
         </form>
       </div>
     </div>
+    <!-- Add Card Modal-->
+    <div class="modal" id="add-card-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          id="profile-close-button"
+          type="button"
+        ></button>
+        <form class="modal__form">
+          <h3 class="modal__heading">New Place</h3>
+          <input
+            type="text"
+            name="name"
+            class="modal__input modal__input_type_title"
+            id="profile-name-input"
+            placeholder="Title"
+          />
+          <input
+            type="text"
+            name="description"
+            class="modal__input modal__input_type_url"
+            id="profile-description-input"
+            placeholder="Image Link"
+          />
+          <button class="modal__button">Save</button>
+        </form>
+      </div>
+    </div>
+    <!--card image modal-->
+    <div class="modal" id="card-image-modal">
+      <div class="modal__container modal__image_preview">
+        <img class="modal__image" src="" alt="" />
+        <p class="modal__caption"></p>
+        <button class="modal__close" id="image-close-button"></button>
+      </div>
+    </div>
     <template id="card-template">
       <li class="card">
+        <button class="card__delete-button"></button>
         <img src="" alt="" class="card__image" />
         <div class="card__description">
           <h2 class="card__title"></h2>
