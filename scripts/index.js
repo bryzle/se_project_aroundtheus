@@ -44,6 +44,7 @@ const addNewCardButton = document.querySelector(".profile__add-button");
 const viewCardImageCloseButton = previewImageModal.querySelector(
   "#image-close-button"
 );
+const modalFormReset = document.querySelectorAll(".modal__form");
 
 //Form Data
 const profileNameInput = document.querySelector("#profile-name-input");
@@ -81,6 +82,7 @@ function handleAddCardSubmit(e) {
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
   renderCard({ name, link }, cardsWrap);
+  addCardForm.reset();
   closeModal(addCardModal);
 }
 
@@ -98,8 +100,7 @@ function getCardElement(cardData) {
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__delete-button");
   //find delete button
-  const popupImage = document.querySelector(".modal__image");
-  const popupCaption = document.querySelector(".modal__caption");
+
   //add event listener to the delete button
   // .remove()
 
@@ -145,12 +146,6 @@ viewCardImageCloseButton.addEventListener("click", () =>
   closeModal(previewImageModal)
 );
 
-function viewCardImage(e) {
-  e.preventdefault();
-  openModal(cardImageModal);
-}
-
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleAddCardSubmit);
-
 initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
