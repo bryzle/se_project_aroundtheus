@@ -126,6 +126,7 @@
 
   .modal__form {
     margin: 22px 25px;
+    width: 100%;
   }
 
   .modal__image_preview {
@@ -145,8 +146,9 @@
 
   .modal__input {
     width: 100%;
-    max-height: 27px;
+    height: 26px;
     margin-bottom: 30px;
+    border-width: 1px;
   }
 
   .modal__button {
