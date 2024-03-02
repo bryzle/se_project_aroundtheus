@@ -44,8 +44,6 @@ const addNewCardButton = document.querySelector(".profile__add-button");
 const viewCardImageCloseButton = previewImageModal.querySelector(
   "#image-close-button"
 );
-const modalFormReset = document.querySelectorAll(".modal__form");
-const modalBox = document.querySelectorAll(".modal");
 const modalForms = document.querySelectorAll(".modal__form");
 //Form Data
 const profileNameInput = document.querySelector("#profile-name-input");
@@ -60,10 +58,23 @@ const popupCaption = document.querySelector(".modal__caption");
 
 function openModal(modal) {
   modal.classList.add("modal_open");
+
+  document.addEventListener("keydown", (evt) => closeModalEscape(modal, evt));
+}
+
+function closeModalEscape(modal, evt) {
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closeModal(modal);
+    }
+  });
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_open");
+  document.removeEventListener("keydown", (evt) => {
+    closeModalEscape(modal, evt);
+  });
 }
 
 function renderCard(cardData, wrapper) {
@@ -165,23 +176,32 @@ previewImageModal.addEventListener("click", (evt) => {
   }
 });
 
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closeModal(profileEditModal);
-  }
-});
+// document.addEventListener("keydown", (evt) => {
+//   if (evt.key === "Escape") {
+//     closeModal(profileEditModal);
+//     document.remove;
+//   }
+// });
 
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closeModal(addCardModal);
-  }
-});
+// document.addEventListener("keydown", (evt) => {
+//   if (evt.key === "Escape") {
+//     closeModal(addCardModal);
+//   }
+// });
 
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closeModal(previewImageModal);
-  }
-});
+// document.addEventListener("keydown", (evt) => {
+//   if (evt.key === "Escape") {
+//     closeModal(previewImageModal);
+//   }
+// });
+
+function closeModalEscape(modal, evt) {
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closeModal(modal);
+    }
+  });
+}
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleAddCardSubmit);
