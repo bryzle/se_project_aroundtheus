@@ -45,7 +45,8 @@ const viewCardImageCloseButton = previewImageModal.querySelector(
   "#image-close-button"
 );
 const modalFormReset = document.querySelectorAll(".modal__form");
-
+const modalBox = document.querySelectorAll(".modal");
+const modalForms = document.querySelectorAll(".modal__form");
 //Form Data
 const profileNameInput = document.querySelector("#profile-name-input");
 const profileDescriptionInput = document.querySelector(
@@ -145,6 +146,42 @@ profileModalCloseButton.addEventListener("click", () =>
 viewCardImageCloseButton.addEventListener("click", () =>
   closeModal(previewImageModal)
 );
+
+addCardModal.addEventListener("click", (evt) => {
+  if (evt.target == addCardModal) {
+    closeModal(addCardModal);
+  }
+});
+
+profileEditModal.addEventListener("click", (evt) => {
+  if (evt.target == profileEditModal) {
+    closeModal(profileEditModal);
+  }
+});
+
+previewImageModal.addEventListener("click", (evt) => {
+  if (evt.target == previewImageModal) {
+    closeModal(previewImageModal);
+  }
+});
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closeModal(profileEditModal);
+  }
+});
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closeModal(addCardModal);
+  }
+});
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closeModal(previewImageModal);
+  }
+});
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleAddCardSubmit);

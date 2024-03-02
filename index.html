@@ -45,7 +45,7 @@
         <p class="footer__copyright">© 2022 Around The U.S.</p>
       </footer>
     </div>
-    <!-- Edit Modal-->
+    <!-- Edit Modal Profile-->
     <div class="modal" id="edit-modal">
       <div class="modal__container">
         <button
@@ -61,14 +61,25 @@
             class="modal__input modal__input_type_name"
             id="profile-name-input"
             placeholder="Jacques-cousteau"
+            required
+            minlength="2"
+            maxlength="40"
           />
+          <span class="modal__error" id="profile-name-input-error"></span>
           <input
             type="text"
             name="description"
             class="modal__input modal__input_type_description"
             id="profile-description-input"
             placeholder="Explorer"
+            required
+            minlength="2"
+            maxlength="40"
           />
+          <span
+            class="modal__error"
+            id="profile-description-input-error"
+          ></span>
           <button class="modal__button">Save</button>
         </form>
       </div>
@@ -87,17 +98,27 @@
             type="text"
             name="name"
             class="modal__input modal__input_type_title"
-            id="profile-name-input"
+            id="card-name-input"
             placeholder="Title"
+            required
+            minlength="2"
+            maxlength="200"
           />
+          <span class="modal__error" id="card-name-input-error"></span>
           <input
-            type="text"
+            type="url"
             name="description"
             class="modal__input modal__input_type_url"
-            id="profile-description-input"
+            id="card-link-input"
             placeholder="Image Link"
+            required
+            minlength="2"
+            maxlength="200"
           />
-          <button class="modal__button">Save</button>
+          <span class="modal__error" id="card-link-input-error"></span>
+          <button class="modal__button modal__button_disabled" disabled>
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -120,5 +141,6 @@
       </li>
     </template>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validation.js"></script>
   </body>
 </html>

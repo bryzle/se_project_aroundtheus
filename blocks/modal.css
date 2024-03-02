@@ -70,7 +70,7 @@
   line-height: 17px;
   max-height: 27px;
   width: 358px;
-  margin-bottom: 48px;
+  margin-bottom: 5px;
   border: none;
   border-bottom: solid;
   border-radius: 1px;
@@ -89,6 +89,7 @@
   text-align: center;
   background-color: #000000;
   color: #ffffff;
+  margin-top: 18px;
 }
 
 .modal__image_preview {
@@ -114,6 +115,30 @@
   line-height: 14.52px;
   color: #ffffff;
   top: calc(100% + 10px);
+}
+
+.modal__error {
+  margin-bottom: 13px;
+  visibility: hidden;
+  width: 358px;
+  height: 12px;
+}
+
+.modal__input_type_error {
+  border-color: #ff0000;
+  visibility: visible;
+}
+
+.modal__error_visible {
+  color: #ff0000;
+  visibility: visible;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.modal__button_disabled {
+  opacity: 20%;
 }
 
 @media screen and (max-width: 560px) {
@@ -145,7 +170,7 @@
   }
 
   .modal__input {
-    width: 100%;
+    width: 80%;
     height: 26px;
     margin-bottom: 30px;
     border-width: 1px;
@@ -155,7 +180,7 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
-    width: 100%;
+    width: 80%;
     height: 46px;
   }
 
