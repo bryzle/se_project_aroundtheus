@@ -58,22 +58,22 @@ const popupCaption = document.querySelector(".modal__caption");
 
 function openModal(modal) {
   modal.classList.add("modal_open");
-  modal.addEventListener("keydown", (evt) => closeModalEscape(modal, evt));
+  document.addEventListener("keydown", (evt) => closeModalEscape(modal, evt));
+}
+function handleEscapeKey(evt) {
+  if (evt.key === "Escape") {
+    const modal = document.querySelector(".modal_open");
+    closeModal(modal);
+  }
 }
 
 function closeModalEscape(modal, evt) {
-  document.addEventListener("keydown", (evt) => {
-    if (evt.key === "Escape") {
-      closeModal(modal);
-    }
-  });
+  document.addEventListener("keydown", handleEscapeKey);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_open");
-  document.removeEventListener("keydown", (evt) => {
-    closeModalEscape(modal, evt);
-  });
+  document.removeEventListener("keydown", handleEscapeKey);
 }
 
 function renderCard(cardData, wrapper) {
@@ -175,12 +175,12 @@ previewImageModal.addEventListener("click", (evt) => {
   }
 });
 
-addCardModal.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closeModal(profileEditModal);
-    document.remove;
-  }
-});
+//  addCardModal.addEventListener("keydown", (evt) => {
+//    if (evt.key === "Escape") {
+//      closeModal(profileEditModal);
+//      document.remove;
+//    }
+//  });
 
 // document.addEventListener("keydown", (evt) => {
 //   if (evt.key === "Escape") {
