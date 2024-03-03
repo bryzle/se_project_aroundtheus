@@ -58,8 +58,7 @@ const popupCaption = document.querySelector(".modal__caption");
 
 function openModal(modal) {
   modal.classList.add("modal_open");
-
-  document.addEventListener("keydown", (evt) => closeModalEscape(modal, evt));
+  modal.addEventListener("keydown", (evt) => closeModalEscape(modal, evt));
 }
 
 function closeModalEscape(modal, evt) {
@@ -176,12 +175,12 @@ previewImageModal.addEventListener("click", (evt) => {
   }
 });
 
-// document.addEventListener("keydown", (evt) => {
-//   if (evt.key === "Escape") {
-//     closeModal(profileEditModal);
-//     document.remove;
-//   }
-// });
+addCardModal.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closeModal(profileEditModal);
+    document.remove;
+  }
+});
 
 // document.addEventListener("keydown", (evt) => {
 //   if (evt.key === "Escape") {
