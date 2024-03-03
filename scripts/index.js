@@ -58,7 +58,7 @@ const popupCaption = document.querySelector(".modal__caption");
 
 function openModal(modal) {
   modal.classList.add("modal_open");
-  document.addEventListener("keydown", (evt) => closeModalEscape(modal, evt));
+  document.addEventListener("keydown", handleEscapeKey);
 }
 function handleEscapeKey(evt) {
   if (evt.key === "Escape") {
@@ -68,12 +68,12 @@ function handleEscapeKey(evt) {
 }
 
 function closeModalEscape(modal, evt) {
-  document.addEventListener("keydown", handleEscapeKey);
+  document.addEventListener("keydown", handleEscapeKey(modal));
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_open");
-  document.removeEventListener("keydown", handleEscapeKey);
+  document.removeEventListener("keydown", handleEscapeKey(modal));
 }
 
 function renderCard(cardData, wrapper) {
@@ -110,15 +110,8 @@ function getCardElement(cardData) {
   const cardTitleEl = cardElement.querySelector(".card__title");
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__delete-button");
-  //find delete button
-
-  //add event listener to the delete button
-  // .remove()
 
   cardImageEl.addEventListener("click", () => handleCardClick(cardData));
-
-  // add click listener to the cardImage element
-  // openmodal with previewImage Modal
 
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
@@ -175,32 +168,13 @@ previewImageModal.addEventListener("click", (evt) => {
   }
 });
 
-//  addCardModal.addEventListener("keydown", (evt) => {
-//    if (evt.key === "Escape") {
-//      closeModal(profileEditModal);
-//      document.remove;
-//    }
-//  });
-
-// document.addEventListener("keydown", (evt) => {
-//   if (evt.key === "Escape") {
-//     closeModal(addCardModal);
-//   }
-// });
-
-// document.addEventListener("keydown", (evt) => {
-//   if (evt.key === "Escape") {
-//     closeModal(previewImageModal);
-//   }
-// });
-
-function closeModalEscape(modal, evt) {
-  document.addEventListener("keydown", (evt) => {
-    if (evt.key === "Escape") {
-      closeModal(modal);
-    }
-  });
-}
+// function closeModalEscape(modal, evt) {
+//   document.addEventListener("keydown", (evt) => {
+//     if (evt.key === "Escape") {
+//       closeModal(modal);
+//     }
+//   });
+// }
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleAddCardSubmit);
