@@ -67,13 +67,9 @@ function handleEscapeKey(evt) {
   }
 }
 
-function closeModalEscape(modal, evt) {
-  document.addEventListener("keydown", handleEscapeKey(modal));
-}
-
 function closeModal(modal) {
   modal.classList.remove("modal_open");
-  document.removeEventListener("keydown", handleEscapeKey(modal));
+  document.removeEventListener("keydown", handleEscapeKey);
 }
 
 function renderCard(cardData, wrapper) {
