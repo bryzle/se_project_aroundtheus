@@ -1,3 +1,5 @@
+import Card from "../components/card.js";
+import FormValidator from "../components/FormValidator.js";
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -27,7 +29,7 @@ const initialCards = [
 
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
-
+//
 //Wrappers
 const profileEditModal = document.querySelector("#edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
@@ -56,26 +58,52 @@ const cardsWrap = document.querySelector(".cards__list");
 const popupImage = document.querySelector(".modal__image");
 const popupCaption = document.querySelector(".modal__caption");
 
-function openModal(modal) {
+//validation
+const validationSettings = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
+const editFormElement = profileEditModal.querySelector(".modal__form");
+const addFormElement = addCardModal.querySelector(".modal__form");
+
+const editFormValidator = new FormValidator(
+  validationSettings,
+  editFormElement
+);
+const addFormValidator = new FormValidator(validationSettings, addFormElement);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
+
+/* function openModal(modal) {
   modal.classList.add("modal_open");
   document.addEventListener("keydown", handleEscapeKey);
-}
-function handleEscapeKey(evt) {
+} */
+/* function handleEscapeKey(evt) {
   if (evt.key === "Escape") {
     const modal = document.querySelector(".modal_open");
     closeModal(modal);
   }
-}
+} */
 
-function closeModal(modal) {
+/* function closeModal(modal) {
   modal.classList.remove("modal_open");
   document.removeEventListener("keydown", handleEscapeKey);
-}
+} */
 
-function renderCard(cardData, wrapper) {
-  const cardElement = getCardElement(cardData);
-  wrapper.prepend(cardElement);
-}
+/* function renderCard(cardData, wrapper) {
+  /* const cardElement = getCardElement(cardData, cardTemplate); */
+/*   wrapper.prepend(card.getView());
+} */
+
+const renderCard = (data, wrap) => {
+  wrap.prepend(new Card(data, "#card-template"));
+};
 
 function handleProfileEditSubmit(e) {
   e.preventDefault();
@@ -100,30 +128,30 @@ function handleCardClick(cardData) {
   openModal(previewImageModal);
 }
 
-function getCardElement(cardData) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImageEl = cardElement.querySelector(".card__image");
-  const cardTitleEl = cardElement.querySelector(".card__title");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
+/* function getCardElement(cardData) { */
+/* const cardElement = cardTemplate.cloneNode(true); */
+/*  const cardImageEl = cardElement.querySelector(".card__image");
+  const cardTitleEl = cardElement.querySelector(".card__title"); */
+/* const likeButton = cardElement.querySelector(".card__like-button"); */
+/* const deleteButton = cardElement.querySelector(".card__delete-button"); */
 
-  cardImageEl.addEventListener("click", () => handleCardClick(cardData));
+/* cardImageEl.addEventListener("click", () => handleCardClick(cardData)); */
 
-  likeButton.addEventListener("click", () => {
+/*   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
-  });
+  }); */
 
-  deleteButton.addEventListener("click", () => {
+/* deleteButton.addEventListener("click", () => {
     cardElement.remove();
-  });
+  }); */
 
-  cardImageEl.src = cardData.link;
+/* cardImageEl.src = cardData.link;
   cardImageEl.alt = cardData.name;
-  cardTitleEl.textContent = cardData.name;
+  cardTitleEl.textContent = cardData.name; */
 
-  return cardElement;
+/* return cardElement;
 }
-
+ */
 profileEditButton.addEventListener("click", () => {
   profileNameInput.value = profileName.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
