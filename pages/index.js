@@ -102,7 +102,8 @@ addFormValidator.enableValidation();
 } */
 
 const renderCard = (data, wrap) => {
-  wrap.prepend(new Card(data, "#card-template"));
+  const card = new Card(data, "#card-template");
+  wrap.prepend(card.getView());
 };
 
 function handleProfileEditSubmit(e) {
