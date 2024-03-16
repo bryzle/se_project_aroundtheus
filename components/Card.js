@@ -1,3 +1,7 @@
+const previewImageModal = document.querySelector(".card__image-modal");
+const popupImage = document.querySelector(".modal__image");
+const popupCaption = document.querySelector(".modal__caption");
+
 const openModal = (modalWindow) => {
   modalWindow.classList.add("modal_open");
   document.addEventListener("keydown", handleEscapeKey);
@@ -27,22 +31,22 @@ export default class Card {
     //".card__like-button"
     this._cardElement
       .querySelector(".card__like-button")
-      .addEventListener("click", () => this._handeLikeIcon);
+      .addEventListener("click", () => this._handeLikeIcon());
 
     this._cardElement
       .querySelector(".card__delete-button")
-      .addEventListener("click", () => this._handleDeleteCard);
-    this._cardImageEl.addEventListener("click", () => this._handleCardClick);
+      .addEventListener("click", () => this._handleDeleteCard());
+    this._cardImageEl.addEventListener("click", () => this._handleCardClick());
   }
 
   _handleCardClick() {
     this._previewImageModal = document.querySelector("#card-image-modal");
     this._popupImage = document.querySelector(".modal__image");
     this._popupCaption = document.querySelector(".modal__caption");
-    _popupImage.style.backgroundImage = `url(${this._link})`;
+    _popupImage.src = this._link;
     _popupCaption.textContent = this._name;
 
-    _openModal(this._previewImageModal);
+    openModal(this._previewImageModal);
   }
 
   _handeLikeIcon() {
@@ -72,7 +76,7 @@ export default class Card {
     //set event listeners,
     // return the card
 
-    this._cardImageEl.style.backgroundImage = `url(${this._link})`;
+    this._cardImageEl.src = this._link;
     this._cardTitleEl.textContent = this._name;
     this._setEventListeners();
     return this._cardElement;
