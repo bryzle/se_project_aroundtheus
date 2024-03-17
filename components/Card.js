@@ -1,4 +1,4 @@
-/* const previewImageModal = document.querySelector(".card__image-modal");
+const previewImageModal = document.querySelector(".card__image-modal");
 const popupImage = document.querySelector(".modal__image");
 const popupCaption = document.querySelector(".modal__caption");
 
@@ -10,21 +10,20 @@ const openModal = (modalWindow) => {
 const closeModal = (modalWindow) => {
   modalWindow.classList.remove("modal_open");
   document.removeEventListener("keydown", handleEscapeKey);
-};
+}; 
 
 const handleEscapeKey = (evt) => {
   if (evt.key === "Escape") {
     const modal = document.querySelector(".modal_open");
     closeModal(modal);
   }
-}; */
+};
 
 export default class Card {
-  constructor({ name, link }, cardSelector, handleCardClick) {
+  constructor({ name, link }, cardSelector) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector; // cardSelector = "#card-template"
-    this._handleCardClick = handleCardClick;
   }
 
   _setEventListeners() {
@@ -43,8 +42,8 @@ export default class Card {
     this._previewImageModal = document.querySelector("#card-image-modal");
     this._popupImage = document.querySelector(".modal__image");
     this._popupCaption = document.querySelector(".modal__caption");
-    _popupImage.src = this._link;
-    _popupCaption.textContent = this._name;
+    this._popupImage.src = this._link;
+    this._popupCaption.textContent = this._name;
 
     openModal(this._previewImageModal);
   }
