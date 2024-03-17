@@ -80,21 +80,21 @@ const addFormValidator = new FormValidator(validationSettings, addFormElement);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
-/* function openModal(modal) {
+function openModal(modal) {
   modal.classList.add("modal_open");
   document.addEventListener("keydown", handleEscapeKey);
-} */
-/* function handleEscapeKey(evt) {
+}
+function handleEscapeKey(evt) {
   if (evt.key === "Escape") {
     const modal = document.querySelector(".modal_open");
     closeModal(modal);
   }
-} */
+}
 
-/* function closeModal(modal) {
+function closeModal(modal) {
   modal.classList.remove("modal_open");
   document.removeEventListener("keydown", handleEscapeKey);
-} */
+}
 
 /* function renderCard(cardData, wrapper) {
   /* const cardElement = getCardElement(cardData, cardTemplate); */

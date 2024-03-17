@@ -1,4 +1,4 @@
-const previewImageModal = document.querySelector(".card__image-modal");
+/* const previewImageModal = document.querySelector(".card__image-modal");
 const popupImage = document.querySelector(".modal__image");
 const popupCaption = document.querySelector(".modal__caption");
 
@@ -17,7 +17,7 @@ const handleEscapeKey = (evt) => {
     const modal = document.querySelector(".modal_open");
     closeModal(modal);
   }
-};
+}; */
 
 export default class Card {
   constructor({ name, link }, cardSelector, handleCardClick) {
@@ -64,13 +64,9 @@ export default class Card {
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
-    this._cardImageEl = document
-      .querySelector(this._cardSelector)
-      .content.querySelector(".card__image");
+    this._cardImageEl = this._cardElement.querySelector(".card__image");
 
-    this._cardTitleEl = document
-      .querySelector(this._cardSelector)
-      .content.querySelector(".card__title");
+    this._cardTitleEl = this._cardElement.querySelector(".card__title");
 
     //get the card view
     //set event listeners,
