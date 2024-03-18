@@ -10,7 +10,7 @@ const openModal = (modalWindow) => {
 const closeModal = (modalWindow) => {
   modalWindow.classList.remove("modal_open");
   document.removeEventListener("keydown", handleEscapeKey);
-}; 
+};
 
 const handleEscapeKey = (evt) => {
   if (evt.key === "Escape") {
