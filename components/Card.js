@@ -1,6 +1,7 @@
 const previewImageModal = document.querySelector(".card__image-modal");
 const popupImage = document.querySelector(".modal__image");
 const popupCaption = document.querySelector(".modal__caption");
+const ESC_KEYCODE = 27;
 
 const openModal = (modalWindow) => {
   modalWindow.classList.add("modal_open");
@@ -13,9 +14,12 @@ const closeModal = (modalWindow) => {
 };
 
 const handleEscapeKey = (evt) => {
-  if (evt.key === "Escape") {
-    const modal = document.querySelector(".modal_open");
-    closeModal(modal);
+  evt.preventDefault();
+
+  const activePopup = document.querySelector(".modal_open");
+
+  if (evt.which === ESC_KEYCODE) {
+    closeModal(activePopup);
   }
 };
 
@@ -73,6 +77,7 @@ export default class Card {
 
     this._cardImageEl.src = this._link;
     this._cardTitleEl.textContent = this._name;
+    this._cardImageEl.alt = this._name;
     this._setEventListeners();
     return this._cardElement;
   }
