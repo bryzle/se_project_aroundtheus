@@ -83,10 +83,9 @@ function openModal(modal) {
 function handleEscapeKey(evt) {
   evt.preventDefault();
 
-  const activePopup = document.querySelector(".modal_open");
-
-  if (evt.which === ESC_KEYCODE) {
-    closeModal(activePopup);
+  if (evt.key === "Escape") {
+    const modal = document.querySelector(".modal_open");
+    closeModal(modal);
   }
 }
 
