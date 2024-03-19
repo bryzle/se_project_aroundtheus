@@ -80,9 +80,8 @@ function openModal(modal) {
   modal.classList.add("modal_open");
   document.addEventListener("keydown", handleEscapeKey);
 }
-function handleEscapeKey(evt) {
-  evt.preventDefault();
 
+function handleEscapeKey(evt) {
   if (evt.key === "Escape") {
     const modal = document.querySelector(".modal_open");
     closeModal(modal);
@@ -95,7 +94,7 @@ const closeModal = (modalWindow) => {
 };
 
 function createCard(item) {
-  const cardElement = new Card(item, "#card-template");
+  const cardElement = new Card(item, "#card-template", handleCardClick);
   return cardElement.getView();
 }
 
@@ -116,7 +115,7 @@ function handleAddCardSubmit(e) {
   e.preventDefault();
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
-  renderCard({ name, link }, cardsWrap);
+  renderCard({ name, link }, cardsWrap.handleCardClick);
   addCardForm.reset();
   addFormValidator.disableButton();
   closeModal(addCardModal);
@@ -161,6 +160,14 @@ previewImageModal.addEventListener("click", (evt) => {
     closeModal(previewImageModal);
   }
 });
+
+function handleCardClick(name, link) {
+  popupImage.src = link;
+  popupImage.alt = name;
+  popupCaption.textContent = name;
+
+  openModal(previewImageModal);
+}
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleAddCardSubmit);

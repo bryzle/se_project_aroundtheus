@@ -1,33 +1,9 @@
-const previewImageModal = document.querySelector(".card__image-modal");
-const popupImage = document.querySelector(".modal__image");
-const popupCaption = document.querySelector(".modal__caption");
-const ESC_KEYCODE = 27;
-
-const openModal = (modalWindow) => {
-  modalWindow.classList.add("modal_open");
-  document.addEventListener("keydown", handleEscapeKey);
-};
-
-const closeModal = (modalWindow) => {
-  modalWindow.classList.remove("modal_open");
-  document.removeEventListener("keydown", handleEscapeKey);
-};
-
-const handleEscapeKey = (evt) => {
-  evt.preventDefault();
-
-  const activePopup = document.querySelector(".modal_open");
-
-  if (evt.which === ESC_KEYCODE) {
-    closeModal(activePopup);
-  }
-};
-
 export default class Card {
-  constructor({ name, link }, cardSelector) {
+  constructor({ name, link }, cardSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector; // cardSelector = "#card-template"
+    this._handleCardClick = handleCardClick;
   }
 
   _setEventListeners() {
@@ -39,18 +15,13 @@ export default class Card {
     this._cardElement
       .querySelector(".card__delete-button")
       .addEventListener("click", () => this._handleDeleteCard());
-    this._cardImageEl.addEventListener("click", () => this._handleCardClick());
+
+    this._cardImageEl.addEventListener("click", () =>
+      this._handleCardClick(this._name, this._link)
+    );
   }
 
-  _handleCardClick() {
-    this._previewImageModal = document.querySelector("#card-image-modal");
-    this._popupImage = document.querySelector(".modal__image");
-    this._popupCaption = document.querySelector(".modal__caption");
-    this._popupImage.src = this._link;
-    this._popupCaption.textContent = this._name;
-
-    openModal(this._previewImageModal);
-  }
+  _handleCardClick() {}
 
   _handeLikeIcon() {
     this._cardElement
