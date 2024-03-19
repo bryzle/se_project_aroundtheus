@@ -89,10 +89,10 @@ function handleEscapeKey(evt) {
   }
 }
 
-function closeModal(modal) {
-  modal.classList.remove("modal_open");
+const closeModal = (modalWindow) => {
+  modalWindow.classList.remove("modal_open");
   document.removeEventListener("keydown", handleEscapeKey);
-}
+};
 
 function createCard(item) {
   const cardElement = new Card(item, "#card-template");
