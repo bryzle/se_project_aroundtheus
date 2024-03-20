@@ -1,5 +1,3 @@
-
-
 export default class FormValidator {
   constructor(config, formElement) {
     this._inputSelector = config.inputSelector;
@@ -54,11 +52,11 @@ export default class FormValidator {
 
   _toggleButtonState(inputElements) {
     if (this._hasInvalidInput(inputElements)) {
-      this.disableButton(this._submitButton, this._inactiveButtonClass);
+      this.disableButton();
       return;
     }
 
-    this._enableButton(this._submitButton, this._inactiveButtonClass);
+    this._enableButton();
   }
 
   disableButton() {
@@ -99,11 +97,3 @@ export default class FormValidator {
     this._setEventListeners();
   }
 }
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
