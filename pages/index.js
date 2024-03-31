@@ -1,5 +1,9 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopUpWithImage from "../components/PopupWithImage.js";
+
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -66,6 +70,7 @@ const validationSettings = {
   errorClass: "modal__error_visible",
 };
 
+
 const editFormValidator = new FormValidator(
   validationSettings,
   profileEditForm
@@ -102,10 +107,13 @@ const renderCard = (data, wrap) => {
   wrap.prepend(card);
 };
 
+const profileEditPopUp = new PopupWithForm("#edit-modal", handleProfileEditSubmit());
+PopupWithForm.setEventListeners();
+
 function handleProfileEditSubmit(e) {
-  e.preventDefault();
-  profileName.textContent = profileNameInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
+/*   e.preventDefault();
+ */  /* profileName.textContent = profileNameInput.value; 
+  profileDescription.textContent = profileDescriptionInput.value; */
   editFormValidator.disableButton();
   closeModal(profileEditModal);
 }
@@ -122,7 +130,7 @@ function handleAddCardSubmit(e) {
 
 profileEditButton.addEventListener("click", () => {
   profileNameInput.value = profileName.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;//popupwithform
   openModal(profileEditModal);
 });
 
@@ -161,11 +169,13 @@ previewImageModal.addEventListener("click", (evt) => {
 });
 
 function handleCardClick(name, link) {
-  popupImage.src = link;
+  const popUpImageElement = new PopUpWithImage({name,link}, "#card-image-modal");
+  return popUpImageElement.open();
+ /*  popupImage.src = link;
   popupImage.alt = name;
   popupCaption.textContent = name;
 
-  openModal(previewImageModal);
+  openModal(previewImageModal); */
 }
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
