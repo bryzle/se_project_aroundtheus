@@ -2,6 +2,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopUpWithImage from "../components/PopupWithImage.js";
+import Userinfo from "../components/Userinfo.js";
 
 const initialCards = [
   {
@@ -106,14 +107,14 @@ const renderCard = (data, wrap) => {
 };
 
 function handleProfileEditSubmit(e) {
-  profileName.textContent = profileNameInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
+  const Userinfo = new Userinfo(profileName, profileDescription);
+  Userinfo.setUserInfo();
+  Userinfo.getUserInfo();
   editFormValidator.disableButton();
   closeModal(profileEditModal);
 }
 
-function handleAddCardSubmit(e) {
-  e.preventDefault();
+function handleAddCardSubmit() {
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
   renderCard({ name, link }, cardsWrap);
@@ -181,7 +182,13 @@ const popupWithEditForm = new PopupWithForm(
   "#edit-modal",
   handleProfileEditSubmit
 );
+
+const popupWithAddForm = new PopupWithForm(
+  "#add-card-modal",
+  handleAddCardSubmit
+);
 popupWithEditForm.setEventListeners();
+popupWithAddForm.setEventListeners();
 
 /* profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleAddCardSubmit); */
