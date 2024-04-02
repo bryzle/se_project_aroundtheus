@@ -3,7 +3,7 @@ import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopUpWithImage from "../components/PopupWithImage.js";
 import Userinfo from "../components/Userinfo.js";
-
+import "../pages/index.css";
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -75,6 +75,7 @@ const editFormValidator = new FormValidator(
   profileEditForm
 );
 const addFormValidator = new FormValidator(validationSettings, addCardForm);
+const userInfo = new Userinfo(profileName, profileDescription);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
@@ -107,9 +108,7 @@ const renderCard = (data, wrap) => {
 };
 
 function handleProfileEditSubmit(e) {
-  const Userinfo = new Userinfo(profileName, profileDescription);
-  Userinfo.setUserInfo();
-  Userinfo.getUserInfo();
+  userInfo.setUserInfo(profileNameInput.value, profileDescriptionInput.value);
   editFormValidator.disableButton();
   closeModal(profileEditModal);
 }
@@ -126,8 +125,7 @@ function handleAddCardSubmit() {
 addCardForm.addEventListener("submit", handleAddCardSubmit);
 
 profileEditButton.addEventListener("click", () => {
-  profileNameInput.value = profileName.textContent;
-  profileDescriptionInput.value = profileDescription.textContent; //popupwithform
+  userInfo.getUserInfo();
   openModal(profileEditModal);
 });
 

@@ -13,9 +13,8 @@ export default class Userinfo {
     this._popUpJobInp.value = this._userJob.textContent;
   }
 
-  setUserInfo() {
-    this._userName.textContent = this._popUpNameInp.value;
-    this._userJob.textContent = this._popUpJobInp.value;
-    super.close();
+  setUserInfo(name, job) {
+    this._userName.textContent = name;
+    this._userJob.textContent = job;
   }
 }

@@ -8,13 +8,12 @@
     <meta name="author" content="Brandon Lum" />
     <meta name="keywords" content="World" />
     <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="page">
     <div class="page__content">
       <header class="header page__section">
         <img
-          src="./images/Logo.svg"
+          src="<%=require('./images/Logo.svg')%>"
           alt="Around the US Logo"
           class="header__logo"
         />
@@ -22,7 +21,7 @@
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/jacques-cousteau.jpg"
+            src="<%=require('./images/jacques-cousteau.jpg')%>"
             alt="Jacques image"
             class="profile__image"
           />
@@ -140,6 +139,5 @@
         </div>
       </li>
     </template>
-    <script type="module" src="./pages/index.js"></script>
   </body>
 </html>
