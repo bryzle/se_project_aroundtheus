@@ -21,8 +21,6 @@ export default class Card {
     );
   }
 
-  _handleCardClick() {}
-
   _handeLikeIcon() {
     this._cardElement
       .querySelector(".card__like-button")

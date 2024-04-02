@@ -5,15 +5,15 @@ export default class PopUpWithImage extends Popup {
     super(popupSelector);
     this._name = name;
     this._link = link;
+    this._popupElement = document.querySelector(popupSelector);
+    this._popupImage = this._popupElement.querySelector(".modal__image");
+    this._popupCaption = this._popupElement.querySelector(".modal__caption");
   }
 
   open() {
-    const popupImage = this._popupElement.querySelector(".modal__image");
-    const popupCaption = this._popupElement.querySelector(".modal__caption");
-
-    popupImage.src = this._link;
-    popupImage.alt = this._name;
-    popupCaption.textContent = this._name;
+    this._popupImage.src = this._link;
+    this._popupImage.alt = this._name;
+    this._popupCaption.textContent = this._name;
 
     super.open();
     super.setEventListeners();
