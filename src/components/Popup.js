@@ -16,21 +16,24 @@ export default class PopUp {
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
       this.close();
+      console.log("escape key");
     }
   }
-
+  _cardClickClose(evt) {
+    if (evt.target.classList.contains("modal_open")) {
+      this.close();
+    }
+  }
   setEventListeners() {
     this._closeButton = this._popupElement.querySelector(".modal__close");
     this._closeButton.addEventListener("click", () => {
       this.close();
     });
-    this._modal = document.querySelector(".modal");
 
     this._popupElement.addEventListener("click", (evt) => {
-      if (evt.target == this._modal) {
-        this.close();
+      this._cardClickClose(evt);
       }
-    });
+    );
     document.addEventListener("keydown", (evt) => {
       this._handleEscClose(evt);
     });

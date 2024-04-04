@@ -76,10 +76,11 @@ const editFormValidator = new FormValidator(
 );
 const addFormValidator = new FormValidator(validationSettings, addCardForm);
 const userInfo = new Userinfo(profileName, profileDescription);
-
+const userData = userInfo.getUserInfo();
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
-
+editFormValidator.disableButton();
+addFormValidator.disableButton();
 /* function openModal(modal) {
   modal.classList.add("modal_open");
   document.addEventListener("keydown", handleEscapeKey);
@@ -109,23 +110,21 @@ const renderCard = (data, wrap) => {
 
 function handleProfileEditSubmit(e) {
   userInfo.setUserInfo(profileNameInput.value, profileDescriptionInput.value);
-  editFormValidator.disableButton();
   closeModal(profileEditModal);
 }
 
-function handleAddCardSubmit() {
-  const name = cardTitleInput.value;
-  const link = cardUrlInput.value;
+const name = cardTitleInput.value;
+const link = cardUrlInput.value;
+
+function handleAddCardSubmit(name, link) {
   renderCard({ name, link }, cardsWrap);
-  addCardForm.reset();
-  addFormValidator.disableButton();
   closeModal(addCardModal);
 }
 
 addCardForm.addEventListener("submit", handleAddCardSubmit);
 
 profileEditButton.addEventListener("click", () => {
-  userInfo.getUserInfo();
+  userData.getUserInfo();
   popupWithEditForm.open();
 });
 
@@ -145,7 +144,7 @@ viewCardImageCloseButton.addEventListener("click", () =>
   closeModal(previewImageModal)
 );
 
-addCardModal.addEventListener("click", (evt) => {
+/* addCardModal.addEventListener("click", (evt) => {
   if (evt.target == addCardModal) {
     closeModal(addCardModal);
   }
@@ -157,19 +156,20 @@ profileEditModal.addEventListener("click", (evt) => {
   }
 });
 
-/* previewImageModal.addEventListener("click", (evt) => {
+previewImageModal.addEventListener("click", (evt) => {
   if (evt.target == previewImageModal) {
     closeModal(previewImageModal);
   }
 }); */
 
-function handleCardClick(name, link) {
-  const popUpImageElement = new PopUpWithImage(
-    { name, link },
-    "#card-image-modal"
-  );
+const popUpImageElement = new PopUpWithImage(
+  { name, link },
+  "#card-image-modal"
+);
 
-  return popUpImageElement.open();
+function handleCardClick(name, link) {
+  popUpImageElement.setEventListeners();
+  return popUpImageElement.open(name, link);
 }
 
 const popupWithEditForm = new PopupWithForm(
