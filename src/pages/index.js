@@ -56,6 +56,8 @@ const profileNameInput = document.querySelector("#profile-name-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
+const popUpNameInp = document.querySelector(".modal__input_type_name");
+const popUpJobInp = document.querySelector(".modal__input_type_description");
 const cardTitleInput = addCardForm.querySelector("#card-name-input");
 const cardUrlInput = addCardForm.querySelector("#card-link-input");
 const cardsWrap = document.querySelector(".cards__list");
@@ -77,8 +79,8 @@ const editFormValidator = new FormValidator(
   profileEditForm
 );
 const addFormValidator = new FormValidator(validationSettings, addCardForm);
-const userInfo = new Userinfo(profileName, profileDescription);
-const userData = userInfo.getUserInfo(profileName, profileDescription);
+const userData = new Userinfo(profileName, profileDescription);
+const userProfile = new Userinfo(profileNameInput, profileDescriptionInput);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 editFormValidator.disableButton();
@@ -100,7 +102,7 @@ function createCard(item) {
 }; */
 
 function handleProfileEditSubmit() {
-  userInfo.setUserInfo(profileNameInput.value, profileDescriptionInput.value);
+  userData.setUserInfo(profileNameInput.value, profileDescriptionInput.value);
   popupWithEditForm.close();
 }
 
@@ -117,7 +119,8 @@ function handleAddCardSubmit(name, link) {
 
 profileEditButton.addEventListener("click", () => {
   popupWithEditForm.open();
-  userInfo.getUserInfo(name, link);
+  const getUserProfile = userData.getUserInfo();
+  console.log(getUserProfile);
 });
 
 addNewCardButton.addEventListener("click", () => {
@@ -158,9 +161,9 @@ const popUpImageElement = new PopUpWithImage(
   { name, link },
   "#card-image-modal"
 );
+popUpImageElement.setEventListeners();
 
 function handleCardClick(name, link) {
-  popUpImageElement.setEventListeners();
   return popUpImageElement.open(name, link);
 }
 
