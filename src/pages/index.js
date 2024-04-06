@@ -110,19 +110,34 @@ function handleProfileEditSubmit() {
 
 profileEditButton.addEventListener("click", () => {
   popupWithEditForm.open();
-  const getUserProfile = userData.getUserInfo();
-  profileNameInput.placeholder = getUserProfile.name;
-  profileDescriptionInput.placeholder = getUserProfile.job;
+  const userProfile = userData.getUserInfo();
+  profileNameInput.value = userProfile.name;
+  profileDescriptionInput.value = userProfile.job;
 });
 
 const name = cardTitleInput.value;
 const link = cardUrlInput.value;
 
-function handleAddCardSubmit(name, link) {
-  const newCard = createCard({ name, link });
+const newCarddata = [{name:cardTitleInput.value, link:cardUrlInput.value}];
+
+function handleAddCardSubmit(newCarddata) {
+  const newCard = createCard(newCarddata);
   cardSection.addItem(newCard);
   popupWithAddForm.close();
 }
+
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = createCard(item);
+      cardSection.addItem(card);
+    },
+  },
+  ".cards__list"
+);
+
+const cardList = cardSection.renderItems();
 
 /* addCardForm.addEventListener("submit", handleAddCardSubmit); */
 
@@ -177,22 +192,13 @@ const popupWithEditForm = new PopupWithForm(
 
 const popupWithAddForm = new PopupWithForm(
   "#add-card-modal",
-  handleAddCardSubmit
+  handleAddCardSubmit()
 );
 popupWithEditForm.setEventListeners();
 popupWithAddForm.setEventListeners();
 
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const card = createCard(item);
-      cardSection.addItem(card);
-    },
-  },
-  ".cards__list"
-);
+
 /* profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleAddCardSubmit); */
 /* initialCards.forEach((cardData) => renderCard(cardData, cardsWrap)); */
-const cardList = cardSection.renderItems();
+
