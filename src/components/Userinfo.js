@@ -2,7 +2,6 @@ export default class Userinfo {
   constructor(userName, userJob) {
     this._userName = userName;
     this._userJob = userJob;
-    
   }
 
   getUserInfo() {
@@ -11,7 +10,6 @@ export default class Userinfo {
       job: this._userJob.textContent,
     };
   }
-
 
   setUserInfo(name, job) {
     this._userName.textContent = name;
