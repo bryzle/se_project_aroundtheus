@@ -84,11 +84,13 @@ addFormValidator.disableButton();
 }; */
 
 function createCard(item) {
+  console.log(1)
+  console.log(item)
   const cardElement = new Card(item, "#card-template", handleCardClick);
   return cardElement.getView();
 }
 
-/* const renderCard = (data, wrap) => {
+/* con = (data, wrap) => {
   const card = createCard(data);
   wrap.prepend(card);
 }; */
@@ -118,12 +120,12 @@ profileEditButton.addEventListener("click", () => {
 const name = cardTitleInput.value;
 const link = cardUrlInput.value;
 
-const newCarddata = [{name:cardTitleInput.value, link:cardUrlInput.value}];
 
-function handleAddCardSubmit(newCarddata) {
-  const newCard = createCard(newCarddata);
-  cardSection.addItem(newCard);
-  popupWithAddForm.close();
+function handleAddCardSubmit(data) {
+  console.log(2);
+  console.log(data);
+  const card = createCard(data);
+  cardSection.addItem(card);
 }
 
 const cardSection = new Section(
@@ -192,7 +194,7 @@ const popupWithEditForm = new PopupWithForm(
 
 const popupWithAddForm = new PopupWithForm(
   "#add-card-modal",
-  handleAddCardSubmit()
+  handleAddCardSubmit
 );
 popupWithEditForm.setEventListeners();
 popupWithAddForm.setEventListeners();
@@ -200,5 +202,5 @@ popupWithAddForm.setEventListeners();
 
 /* profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleAddCardSubmit); */
-/* initialCards.forEach((cardData) => renderCard(cardData, cardsWrap)); */
+/* initialCards.forEach((cardData) (cardData, cardsWrap)); */
 
