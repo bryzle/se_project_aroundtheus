@@ -1,9 +1,9 @@
-import card from "../components/card.js";
-import formValidator from "../components/FormValidator.js";
-import popupWithForm from "../components/PopupWithForm.js";
-import popUpWithImage from "../components/PopupWithImage.js";
-import userInfo from "../components/Userinfo.js";
-import section from "../components/Section.js";
+import Card from "../components/card.js";
+import FormValidator from "../components/FormValidator.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopUpWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/Userinfo.js";
+import Section from "../components/Section.js";
 import "../pages/index.css"
 
 const initialCards = [
@@ -67,11 +67,11 @@ const validationSettings = {
   errorClass: "modal__error_visible",
 };
 
-const editFormValidator = new formValidator(
+const editFormValidator = new FormValidator(
   validationSettings,
   profileEditForm
 );
-const addFormValidator = new formValidator(validationSettings, addCardForm);
+const addFormValidator = new FormValidator(validationSettings, addCardForm);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
@@ -84,7 +84,7 @@ addFormValidator.disableButton();
 }; */
 
 function createCard(item) {
-  const cardElement = new card(item, "#card-template", handleCardClick);
+  const cardElement = new Card(item, "#card-template", handleCardClick);
   return cardElement.getView();
 }
 
@@ -101,7 +101,7 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
-const userData = new userInfo(profileName, profileDescription);
+const userData = new UserInfo(profileName, profileDescription);
 
 function handleProfileEditSubmit() {
   userData.setUserInfo(profileNameInput.value, profileDescriptionInput.value);
@@ -125,7 +125,7 @@ function handleAddCardSubmit(data) {
   popupWithAddForm.close();
 }
 
-const cardSection = new section(
+const cardSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
@@ -174,22 +174,23 @@ previewImageModal.addEventListener("click", (evt) => {
   }
 }); */
 
-const popUpImageElement = new popUpWithImage(
+const popUpImageElement = new PopUpWithImage(
   { name, link },
   "#card-image-modal"
 );
 popUpImageElement.setEventListeners();
 
 function handleCardClick(name, link) {
+  console.log(name,link)
   return popUpImageElement.open(name, link);
 }
 
-const popupWithEditForm = new popupWithForm(
+const popupWithEditForm = new PopupWithForm(
   "#edit-modal",
   handleProfileEditSubmit
 );
 
-const popupWithAddForm = new popupWithForm(
+const popupWithAddForm = new PopupWithForm(
   "#add-card-modal",
   handleAddCardSubmit
 );

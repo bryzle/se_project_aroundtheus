@@ -1,4 +1,4 @@
-export default class popUp {
+export default class PopUp {
   constructor({ popupSelector }) {
     this._popupElement = document.querySelector(popupSelector);
   }
@@ -34,8 +34,6 @@ export default class popUp {
       this._cardClickClose(evt);
       }
     );
-    /* document.addEventListener("keydown", (evt) => {
-      this._handleEscClose(evt);
-    }); */
+   
   }
 }
