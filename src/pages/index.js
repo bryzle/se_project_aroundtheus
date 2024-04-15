@@ -1,10 +1,10 @@
-import Card from "../components/Card.js";
+import Card from "../components/card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopUpWithImage from "../components/PopupWithImage.js";
-import Userinfo from "../components/Userinfo.js";
-import "../pages/index.css";
+import UserInfo from "../components/Userinfo.js";
 import Section from "../components/Section.js";
+import "../pages/index.css"
 
 const initialCards = [
   {
@@ -88,7 +88,7 @@ function createCard(item) {
   return cardElement.getView();
 }
 
-/* const renderCard = (data, wrap) => {
+/* con = (data, wrap) => {
   const card = createCard(data);
   wrap.prepend(card);
 }; */
@@ -101,7 +101,7 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
-const userData = new Userinfo(profileName, profileDescription);
+const userData = new UserInfo(profileName, profileDescription);
 
 function handleProfileEditSubmit() {
   userData.setUserInfo(profileNameInput.value, profileDescriptionInput.value);
@@ -118,11 +118,10 @@ profileEditButton.addEventListener("click", () => {
 const name = cardTitleInput.value;
 const link = cardUrlInput.value;
 
-const newCarddata = [{name:cardTitleInput.value, link:cardUrlInput.value}];
 
-function handleAddCardSubmit(newCarddata) {
-  const newCard = createCard(newCarddata);
-  cardSection.addItem(newCard);
+function handleAddCardSubmit(data) {
+  const card = createCard(data);
+  cardSection.addItem(card);
   popupWithAddForm.close();
 }
 
@@ -182,6 +181,7 @@ const popUpImageElement = new PopUpWithImage(
 popUpImageElement.setEventListeners();
 
 function handleCardClick(name, link) {
+  console.log(name,link)
   return popUpImageElement.open(name, link);
 }
 
@@ -192,7 +192,7 @@ const popupWithEditForm = new PopupWithForm(
 
 const popupWithAddForm = new PopupWithForm(
   "#add-card-modal",
-  handleAddCardSubmit()
+  handleAddCardSubmit
 );
 popupWithEditForm.setEventListeners();
 popupWithAddForm.setEventListeners();
@@ -200,5 +200,5 @@ popupWithAddForm.setEventListeners();
 
 /* profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleAddCardSubmit); */
-/* initialCards.forEach((cardData) => renderCard(cardData, cardsWrap)); */
+/* initialCards.forEach((cardData) (cardData, cardsWrap)); */
 

@@ -34,8 +34,6 @@ export default class PopUp {
       this._cardClickClose(evt);
       }
     );
-    /* document.addEventListener("keydown", (evt) => {
-      this._handleEscClose(evt);
-    }); */
+   
   }
 }

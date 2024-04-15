@@ -47,6 +47,11 @@
   left: calc(100% + 6px);
 }
 
+.modal__close:hover {
+  cursor:pointer;
+  opacity: .5;
+}
+
 .modal__form {
   display: flex;
   flex-direction: column;
@@ -90,6 +95,11 @@
   background-color: #000000;
   color: #ffffff;
   margin-top: 18px;
+}
+
+.modal__button:hover {
+  cursor: pointer;
+  opacity: 0.6;
 }
 
 .modal__image_preview {
