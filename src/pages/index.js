@@ -4,7 +4,8 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopUpWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/Userinfo.js";
 import Section from "../components/Section.js";
-import "../pages/index.css"
+import "../pages/index.css";
+import Api from "../components/Api.js";
 
 const initialCards = [
   {
@@ -67,6 +68,14 @@ const validationSettings = {
   errorClass: "modal__error_visible",
 };
 
+/* const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "1fed014f-8095-47e3-ae36-12d183e8caec",
+    "Content-Type": "application/json",
+  },
+}); */
+
 const editFormValidator = new FormValidator(
   validationSettings,
   profileEditForm
@@ -118,7 +127,6 @@ profileEditButton.addEventListener("click", () => {
 const name = cardTitleInput.value;
 const link = cardUrlInput.value;
 
-
 function handleAddCardSubmit(data) {
   const card = createCard(data);
   cardSection.addItem(card);
@@ -138,8 +146,6 @@ const cardSection = new Section(
 
 const cardList = cardSection.renderItems();
 
-/* addCardForm.addEventListener("submit", handleAddCardSubmit); */
-
 addNewCardButton.addEventListener("click", () => {
   popupWithAddForm.open();
 });
@@ -152,28 +158,6 @@ profileModalCloseButton.addEventListener("click", () =>
   popupWithAddForm.close()
 );
 
-/* viewCardImageCloseButton.addEventListener("click", () =>
-  closeModal(previewImageModal)
-); */
-
-/* addCardModal.addEventListener("click", (evt) => {
-  if (evt.target == addCardModal) {
-    closeModal(addCardModal);
-  }
-});
-
-profileEditModal.addEventListener("click", (evt) => {
-  if (evt.target == profileEditModal) {
-    closeModal(profileEditModal);
-  }
-});
-
-previewImageModal.addEventListener("click", (evt) => {
-  if (evt.target == previewImageModal) {
-    closeModal(previewImageModal);
-  }
-}); */
-
 const popUpImageElement = new PopUpWithImage(
   { name, link },
   "#card-image-modal"
@@ -181,7 +165,7 @@ const popUpImageElement = new PopUpWithImage(
 popUpImageElement.setEventListeners();
 
 function handleCardClick(name, link) {
-  console.log(name,link)
+  console.log(name, link);
   return popUpImageElement.open(name, link);
 }
 
@@ -197,8 +181,28 @@ const popupWithAddForm = new PopupWithForm(
 popupWithEditForm.setEventListeners();
 popupWithAddForm.setEventListeners();
 
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "298dccb5-56b1-425a-ba81-960441ee84bf",
+    "Content-Type": "application/json",
+  },
+});
 
-/* profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-addCardForm.addEventListener("submit", handleAddCardSubmit); */
-/* initialCards.forEach((cardData) (cardData, cardsWrap)); */
+api
+  .getInitialCards()
+  .then((result) => {
+    console.log(result); // log the result to the console
+  })
+  .catch((err) => {
+    console.error(err); // log the error to the console
+  });
 
+api
+  .getUserInfo()
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
