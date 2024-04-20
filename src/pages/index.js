@@ -68,14 +68,6 @@ const validationSettings = {
   errorClass: "modal__error_visible",
 };
 
-/* const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "1fed014f-8095-47e3-ae36-12d183e8caec",
-    "Content-Type": "application/json",
-  },
-}); */
-
 const editFormValidator = new FormValidator(
   validationSettings,
   profileEditForm
@@ -97,11 +89,6 @@ function createCard(item) {
   return cardElement.getView();
 }
 
-/* con = (data, wrap) => {
-  const card = createCard(data);
-  wrap.prepend(card);
-}; */
-
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
@@ -109,8 +96,6 @@ const profileNameInput = document.querySelector("#profile-name-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
-
-const userData = new UserInfo(profileName, profileDescription);
 
 function handleProfileEditSubmit() {
   userData.setUserInfo(profileNameInput.value, profileDescriptionInput.value);
@@ -132,19 +117,6 @@ function handleAddCardSubmit(data) {
   cardSection.addItem(card);
   popupWithAddForm.close();
 }
-
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const card = createCard(item);
-      cardSection.addItem(card);
-    },
-  },
-  ".cards__list"
-);
-
-const cardList = cardSection.renderItems();
 
 addNewCardButton.addEventListener("click", () => {
   popupWithAddForm.open();
@@ -178,6 +150,7 @@ const popupWithAddForm = new PopupWithForm(
   "#add-card-modal",
   handleAddCardSubmit
 );
+
 popupWithEditForm.setEventListeners();
 popupWithAddForm.setEventListeners();
 
@@ -189,19 +162,45 @@ const api = new Api({
   },
 });
 
+const userData = new UserInfo(
+  profileName.textContent,
+  profileDescription.textContent
+);
+
 api
   .getInitialCards()
-  .then((result) => {
-    console.log(result); // log the result to the console
+  .then(() => {
+    const cardSection = new Section(
+      {
+        items: initialCards,
+        renderer: (item) => {
+          const card = createCard(item);
+          cardSection.addItem(card);
+        },
+      },
+      ".cards__list"
+    );
+
+    const cardList = cardSection.renderItems();
   })
+
   .catch((err) => {
     console.error(err); // log the error to the console
   });
 
 api
   .getUserInfo()
-  .then((result) => {
-    console.log(result);
+  .then((result) => {})
+  .catch((err) => {
+    console.error(err);
+  });
+
+api.updateUserInfo();
+
+api
+  .createCard(name,link)
+  .then((results) => {
+    console.log(results);
   })
   .catch((err) => {
     console.error(err);
