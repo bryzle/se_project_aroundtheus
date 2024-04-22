@@ -38,24 +38,25 @@ export default class Api {
       });
   }
 
-  createCard() {
+  createCard({username, userlink}) {
     return fetch(`${this._baseUrl}/cards`, {
-     method: "POST",
-     headers: this._headers,
-     body: JSON.stringify({
-      name: "test card name",
-       link: "test card link",
-     }),
-   }).then((res) => {
-     if (res.ok) {
-       return res.json();
-     }
-     return Promise.reject(`Error: ${res.status}`);
-   })
-  .then((results) => {
-    console.log(results);
-  }); 
- }
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: username,
+        link: userlink,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .then((results) => {
+        console.log(results);
+      });
+  }
 
   updateUserAvatar() {}
 
@@ -71,8 +72,6 @@ export default class Api {
         console.log(results);
       });
   }
-
- 
 
   deleteCard() {}
 

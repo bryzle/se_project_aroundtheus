@@ -112,9 +112,17 @@ profileEditButton.addEventListener("click", () => {
 const name = cardTitleInput.value;
 const link = cardUrlInput.value;
 
-function handleAddCardSubmit(data) {
-  const card = createCard(data);
-  cardSection.addItem(card);
+function handleAddCardSubmit() {
+  api
+    .createCard({name:cardTitleInput.value, link:cardUrlInput.value})
+    .then((cardData) => {
+      console.log("this worked");
+      cardSection.addItem(cardData);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
   popupWithAddForm.close();
 }
 
@@ -153,6 +161,17 @@ const popupWithAddForm = new PopupWithForm(
 
 popupWithEditForm.setEventListeners();
 popupWithAddForm.setEventListeners();
+
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = createCard(item);
+      cardSection.addItem(card);
+    },
+  },
+  ".cards__list"
+);
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -196,12 +215,3 @@ api
   });
 
 api.updateUserInfo();
-
-api
-  .createCard(name,link)
-  .then((results) => {
-    console.log(results);
-  })
-  .catch((err) => {
-    console.error(err);
-  });
