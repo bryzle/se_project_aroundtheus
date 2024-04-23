@@ -56,7 +56,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers })
       .then((res) =>{this._checkResponse})
       .then((results) => {
-        console.log(results);
+        console.log(results);g
       });
   }
 
