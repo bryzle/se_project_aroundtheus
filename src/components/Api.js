@@ -38,15 +38,18 @@ export default class Api {
       });
   }
 
-  createCard({username, userlink}) {
+  createCard({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: username,
-        link: userlink,
+        name: name,
+        link: link,
       }),
     })
+      .then(() => {
+        console.log(name, link);
+      })
       .then((res) => {
         if (res.ok) {
           return res.json();

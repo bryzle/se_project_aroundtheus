@@ -114,7 +114,10 @@ const link = cardUrlInput.value;
 
 function handleAddCardSubmit() {
   api
-    .createCard({name:cardTitleInput.value, link:cardUrlInput.value})
+    .createCard({
+      name: cardTitleInput.value,
+      link: cardUrlInput.value,
+    })
     .then((cardData) => {
       console.log("this worked");
       cardSection.addItem(cardData);
