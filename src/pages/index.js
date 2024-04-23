@@ -112,20 +112,19 @@ profileEditButton.addEventListener("click", () => {
 const name = cardTitleInput.value;
 const link = cardUrlInput.value;
 
-function handleAddCardSubmit() {
-  api
-    .createCard({
-      name: cardTitleInput.value,
-      link: cardUrlInput.value,
-    })
-    .then((cardData) => {
-      console.log("this worked");
-      cardSection.addItem(cardData);
+
+
+function handleAddCardSubmit(data) {
+
+api
+    .createCard(data.name, data.link)
+    .then((results) => {
+      const card = createCard(results);
+      cardSection.addItem(card);
     })
     .catch((err) => {
       console.error(err);
     });
-
   popupWithAddForm.close();
 }
 
@@ -189,6 +188,8 @@ const userData = new UserInfo(
   profileDescription.textContent
 );
 
+
+
 api
   .getInitialCards()
   .then(() => {
@@ -210,11 +211,5 @@ api
     console.error(err); // log the error to the console
   });
 
-api
-  .getUserInfo()
-  .then((result) => {})
-  .catch((err) => {
-    console.error(err);
-  });
 
-api.updateUserInfo();
+

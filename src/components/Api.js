@@ -4,19 +4,20 @@ export default class Api {
     this._baseUrl = baseUrl;
   }
 
+  _checkResponse(res) {if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Error: ${res.status}`);
+}
+
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
       method: "GET",
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
-    /* .then((results) => {
+    }).then((res) =>{this._checkResponse})
+    .then((results) => {
         console.log(results);
-      }) */
+      })
   }
   updateUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
@@ -27,35 +28,23 @@ export default class Api {
         about: "Physicist and Chemist",
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
+      .then((res) =>{this._checkResponse}
+      )
       .then((results) => {
         console.log(results);
       });
   }
 
-  createCard({ name, link }) {
+  createCard( {name, link} ) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: name,
-        link: link,
+        name,
+        link,
       }),
     })
-      .then(() => {
-        console.log(name, link);
-      })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
+      .then((res) =>{this._checkResponse})
       .then((results) => {
         console.log(results);
       });
@@ -65,12 +54,7 @@ export default class Api {
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
+      .then((res) =>{this._checkResponse})
       .then((results) => {
         console.log(results);
       });
