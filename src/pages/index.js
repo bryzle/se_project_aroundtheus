@@ -112,18 +112,16 @@ profileEditButton.addEventListener("click", () => {
 const name = cardTitleInput.value;
 const link = cardUrlInput.value;
 
-
-
 function handleAddCardSubmit(data) {
-
-api
-    .createCard(data.name, data.link)
+  api
+    .createCard(cardTitleInput.value, cardUrlInput.value)
     .then((results) => {
       const card = createCard(results);
+
       cardSection.addItem(card);
     })
     .catch((err) => {
-      console.error(err);
+      console.error(`The error is ${err}`)
     });
   popupWithAddForm.close();
 }
@@ -188,8 +186,6 @@ const userData = new UserInfo(
   profileDescription.textContent
 );
 
-
-
 api
   .getInitialCards()
   .then(() => {
@@ -211,5 +207,11 @@ api
     console.error(err); // log the error to the console
   });
 
-
-
+api
+  .getUserInfo()
+  .then((results) => {
+    console.log(results);
+  })
+  .catch((err) => {
+    console.error(err);
+  });

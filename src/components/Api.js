@@ -4,49 +4,56 @@ export default class Api {
     this._baseUrl = baseUrl;
   }
 
-  _checkResponse(res) {if (res.ok) {
-    return res.json();
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
   }
-  return Promise.reject(`Error: ${res.status}`);
-}
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
       method: "GET",
-    }).then((res) =>{this._checkResponse})
-    .then((results) => {
-        console.log(results);
+    })
+      .then((res) => {
+        this._checkResponse(res);
       })
+      .then((results) => {
+        console.log(results);
+      });
   }
-  updateUserInfo() {
+  updateUserInfo(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: "Marie Skłodowska Curie",
-        about: "Physicist and Chemist",
+        name: name,
+        about: about,
       }),
     })
-      .then((res) =>{this._checkResponse}
-      )
+      .then((res) => {
+        this._checkResponse(res);
+      })
       .then((results) => {
         console.log(results);
       });
   }
 
-  createCard( {name, link} ) {
+  createCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name,
-        link,
+        name: name,
+        link: link,
       }),
     })
-      .then((res) =>{this._checkResponse})
-      .then((results) => {
-        console.log(results);
+      .then((res) => {
+        this._checkResponse(res);
+      })
+      .then((res) => {
+        console.log(res);
       });
   }
 
@@ -54,9 +61,11 @@ export default class Api {
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers })
-      .then((res) =>{this._checkResponse})
+      .then((res) => {
+        this._checkResponse(res);
+      })
       .then((results) => {
-        console.log(results);g
+        console.log(results);
       });
   }
 
