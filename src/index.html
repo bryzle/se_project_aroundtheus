@@ -26,13 +26,13 @@
             class="profile__image"
           />
           <div class="profile__info">
-            <h1 class="profile__name">Brandon Lum</h1>
+            <h1 class="profile__name"></h1>
             <button
               type="button"
               class="profile__edit-button"
               id="profile-edit-button"
             ></button>
-            <p class="profile__description">Explorer</p>
+            <p class="profile__description"></p>
           </div>
           <button type="button" class="profile__add-button"></button>
         </section>
@@ -127,6 +127,14 @@
         <img class="modal__image" src="" alt="" />
         <p class="modal__caption"></p>
         <button class="modal__close" id="image-close-button"></button>
+      </div>
+    </div>
+    <!--delete card modal-->
+    <div class="modal" id="delete-card-modal">
+      <div class="modal__container modal__delete_card">
+        <h3 class="modal__heading modal_delete-card-heading">Are you sure?</h3>
+        <button class="modal__close" id="delete-close-button"></button>
+        <button class="modal-delete-button">Yes</button>
       </div>
     </div>
     <template id="card-template">

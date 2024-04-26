@@ -2,6 +2,7 @@ export default class Card {
   constructor(data, cardSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
+    this._id = data._id;
     this._cardSelector = cardSelector; // cardSelector = "#card-template"
     this._handleCardClick = handleCardClick;
   }
@@ -26,6 +27,7 @@ export default class Card {
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button_active");
   }
+
   _handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;

@@ -15,13 +15,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
       method: "GET",
-    })
-      .then((res) => {
-        this._checkResponse(res);
-      })
-      .then((results) => {
-        console.log(results);
-      });
+    }).then(this._checkResponse);
   }
   updateUserInfo(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
@@ -31,13 +25,7 @@ export default class Api {
         name: name,
         about: about,
       }),
-    })
-      .then((res) => {
-        this._checkResponse(res);
-      })
-      .then((results) => {
-        console.log(results);
-      });
+    }).then(this._checkResponse);
   }
 
   createCard(name, link) {
@@ -48,28 +36,26 @@ export default class Api {
         name: name,
         link: link,
       }),
-    })
-      .then((res) => {
-        this._checkResponse(res);
-      })
-      .then((res) => {
-        console.log(res);
-      });
+    }).then(this._checkResponse);
   }
 
   updateUserAvatar() {}
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, { headers: this._headers })
-      .then((res) => {
-        this._checkResponse(res);
-      })
-      .then((results) => {
-        console.log(results);
-      });
+    return fetch(`${this._baseUrl}/cards`, { headers: this._headers }).then(
+      this._checkResponse
+    );
   }
 
-  deleteCard() {}
+  deleteCard(id) {
+
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+    .then(this._checkResponse)
+    .then(console.log("Card has been deleted"))
+  }
 
   likeCard() {}
 
