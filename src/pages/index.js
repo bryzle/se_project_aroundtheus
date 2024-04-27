@@ -6,6 +6,8 @@ import UserInfo from "../components/Userinfo.js";
 import Section from "../components/Section.js";
 import "../pages/index.css";
 import Api from "../components/Api.js";
+import PopUp from "../components/PopUp.js";
+import PopUpWithForm from "../components/PopupWithForm.js";
 
 const initialCards = [
   {
@@ -42,22 +44,19 @@ const profileEditModal = document.querySelector("#edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addCardForm = addCardModal.querySelector(".modal__form");
-const previewImageModal = document.querySelector("#card-image-modal");
+
 //Buttons and DOM nodes
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
 const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
 const addNewCardButton = document.querySelector(".profile__add-button");
-const viewCardImageCloseButton =
-  previewImageModal.querySelector(".modal__close");
 //Form Data
 
 const cardTitleInput = addCardForm.querySelector("#card-name-input");
 const cardUrlInput = addCardForm.querySelector("#card-link-input");
-const cardsWrap = document.querySelector(".cards__list");
-const popupImage = document.querySelector(".modal__image");
-const popupCaption = document.querySelector(".modal__caption");
 
+const deleteModalButton = document.querySelector(".card__delete-button");
+const deleteCardButton = document.querySelector(".modal-delete-button");
 //validation
 const validationSettings = {
   formSelector: ".modal__form",
@@ -67,6 +66,14 @@ const validationSettings = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
 };
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "298dccb5-56b1-425a-ba81-960441ee84bf",
+    "Content-Type": "application/json",
+  },
+});
 
 const editFormValidator = new FormValidator(
   validationSettings,
@@ -85,7 +92,7 @@ addFormValidator.disableButton();
 }; */
 
 function createCard(item) {
-  const cardElement = new Card(item, "#card-template", handleCardClick);
+  const cardElement = new Card(item, "#card-template", handleCardClick,handleDeleteClick);
   return cardElement.getView();
 }
 
@@ -97,14 +104,24 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
+/* deleteModalButton.addEventListener("click", () => {
+ deleteCardPopUp.open()
+
+}) */
+
+/* const deleteCardPopUp = new PopupWithForm("#delete-card-modal");
+console.log(deleteModalButton); */
+
 function handleProfileEditSubmit() {
   userData.setUserInfo(profileNameInput.value, profileDescriptionInput.value);
+  api.updateUserInfo(profileNameInput.value, profileDescriptionInput.value);
   popupWithEditForm.close();
 }
 
 profileEditButton.addEventListener("click", () => {
   popupWithEditForm.open();
   const userProfile = userData.getUserInfo();
+  console.log(">>User Profile", userProfile);
   profileNameInput.value = userProfile.name;
   profileDescriptionInput.value = userProfile.job;
 });
@@ -113,8 +130,15 @@ const name = cardTitleInput.value;
 const link = cardUrlInput.value;
 
 function handleAddCardSubmit(data) {
-  const card = createCard(data);
-  cardSection.addItem(card);
+  api
+    .createCard(data.name, data.link)
+    .then((results) => {
+      const card = createCard(results);
+      cardSection.addItem(card);
+    })
+    .catch((err) => {
+      console.error(`The error is ${err}`);
+    });
   popupWithAddForm.close();
 }
 
@@ -153,25 +177,25 @@ const popupWithAddForm = new PopupWithForm(
 popupWithEditForm.setEventListeners();
 popupWithAddForm.setEventListeners();
 
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "298dccb5-56b1-425a-ba81-960441ee84bf",
-    "Content-Type": "application/json",
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = createCard(item);
+      cardSection.addItem(card);
+    },
   },
-});
-
-const userData = new UserInfo(
-  profileName.textContent,
-  profileDescription.textContent
+  ".cards__list"
 );
+
+const userData = new UserInfo(profileName, profileDescription);
 
 api
   .getInitialCards()
-  .then(() => {
+  .then((cardData) => {
     const cardSection = new Section(
       {
-        items: initialCards,
+        items: cardData,
         renderer: (item) => {
           const card = createCard(item);
           cardSection.addItem(card);
@@ -189,6 +213,7 @@ api
 
 api
   .getUserInfo()
+<<<<<<< HEAD
   .then((result) => {})
   .catch((err) => {
     console.error(err);
@@ -200,7 +225,41 @@ api
   .createCard({name:cardTitleInput.value,link:cardUrlInput.value})
   .then((results) => {
     console.log(results);
+=======
+  .then((data) => {
+    userData.setUserInfo(data.name, data.about);
+>>>>>>> 511365b5299f7bcd199bcbc715f355fa29fc9d76
   })
   .catch((err) => {
-    console.error(err);
+    console.error(err); // log the error to the console
   });
+
+function deleteCardSubmit(id) {
+  api
+    .deleteCard(id)
+    .then((id) => {
+      console.log(id);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+const deleteCardPopUp = new PopUpWithForm(
+  "#delete-card-modal",
+  deleteCardSubmit
+);
+
+
+
+function handleDeleteClick(card){
+  deleteCardPopUp.open(card._id)
+  deleteCardPopUp.setSubmitAction(() => {
+    deleteCardSubmit(card._id)
+  })
+}
+
+deleteCardButton.addEventListener("click", () => {
+
+  deleteCardPopUp.close();  
+});
