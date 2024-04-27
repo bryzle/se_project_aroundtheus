@@ -38,13 +38,13 @@ export default class Api {
       });
   }
 
-  createCard() {
+  createCard({userName, URL}) {
     return fetch(`${this._baseUrl}/cards`, {
      method: "POST",
      headers: this._headers,
      body: JSON.stringify({
-      name: "test card name",
-       link: "test card link",
+      name: userName,
+       link: URL,
      }),
    }).then((res) => {
      if (res.ok) {
@@ -52,8 +52,8 @@ export default class Api {
      }
      return Promise.reject(`Error: ${res.status}`);
    })
-  .then((results) => {
-    console.log(results);
+  .then(() => {
+    console.log(URL);
   }); 
  }
 

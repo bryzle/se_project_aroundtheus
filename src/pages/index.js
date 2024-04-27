@@ -137,7 +137,6 @@ const popUpImageElement = new PopUpWithImage(
 popUpImageElement.setEventListeners();
 
 function handleCardClick(name, link) {
-  console.log(name, link);
   return popUpImageElement.open(name, link);
 }
 
@@ -198,7 +197,7 @@ api
 api.updateUserInfo();
 
 api
-  .createCard(name,link)
+  .createCard({name:cardTitleInput.value,link:cardUrlInput.value})
   .then((results) => {
     console.log(results);
   })
