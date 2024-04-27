@@ -8,6 +8,11 @@ export default class PopUpWithForm extends PopUp {
     this._inputEls = Array.from(
       this._popupForm.querySelectorAll(".modal__input")
     );
+
+    //PopupWithConfirm
+//setSubmitAction(fn) {
+  //this._handleFormSubmit = fn
+}
   }
 
   close() {

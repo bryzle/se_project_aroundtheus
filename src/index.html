@@ -132,11 +132,16 @@
     <!--delete card modal-->
     <div class="modal" id="delete-card-modal">
       <div class="modal__container modal__delete_card">
-        <h3 class="modal__heading modal_delete-card-heading">Are you sure?</h3>
-        <button class="modal__close" id="delete-close-button"></button>
-        <button class="modal-delete-button">Yes</button>
+        <form action="" class="modal__form">
+          <h3 class="modal__heading modal_delete-card-heading">
+            Are you sure?
+          </h3>
+          <button class="modal__close" id="delete-close-button"></button>
+          <button class="modal-delete-button">Yes</button>
+        </form>
       </div>
     </div>
+    <!--card-template-->
     <template id="card-template">
       <li class="card">
         <button class="card__delete-button"></button>

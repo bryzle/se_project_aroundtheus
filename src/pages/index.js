@@ -50,14 +50,13 @@ const profileEditButton = document.querySelector("#profile-edit-button");
 const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
 const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
 const addNewCardButton = document.querySelector(".profile__add-button");
-const cardDeleteModal = document.querySelector("#delete-card-modal");
 //Form Data
 
 const cardTitleInput = addCardForm.querySelector("#card-name-input");
 const cardUrlInput = addCardForm.querySelector("#card-link-input");
 
 const deleteModalButton = document.querySelector(".card__delete-button");
-
+const deleteCardButton = document.querySelector(".modal-delete-button");
 //validation
 const validationSettings = {
   formSelector: ".modal__form",
@@ -93,7 +92,7 @@ addFormValidator.disableButton();
 }; */
 
 function createCard(item) {
-  const cardElement = new Card(item, "#card-template", handleCardClick);
+  const cardElement = new Card(item, "#card-template", handleCardClick,handleDeleteClick);
   return cardElement.getView();
 }
 
@@ -237,3 +236,17 @@ const deleteCardPopUp = new PopUpWithForm(
   "#delete-card-modal",
   deleteCardSubmit
 );
+
+
+
+function handleDeleteClick(card){
+  deleteCardPopUp.open(card._id)
+  deleteCardPopUp.setSubmitAction(() => {
+    deleteCardSubmit(card._id)
+  })
+}
+
+deleteCardButton.addEventListener("click", () => {
+
+  deleteCardPopUp.close();  
+});
