@@ -8,6 +8,7 @@ import "../pages/index.css";
 import Api from "../components/Api.js";
 import PopUp from "../components/PopUp.js";
 import PopUpWithForm from "../components/PopupWithForm.js";
+import PopUpWithConfirm from "../components/PopUpWithConfirm.js";
 
 const initialCards = [
   {
@@ -105,11 +106,11 @@ const profileDescriptionInput = document.querySelector(
 );
 
 /* deleteModalButton.addEventListener("click", () => {
- deleteCardPopUp.open()
+ popupWithDeleteForm.open()
 
 }) */
 
-/* const deleteCardPopUp = new PopupWithForm("#delete-card-modal");
+/* const popupWithDeleteForm = new PopupWithForm("#delete-card-modal");
 console.log(deleteModalButton); */
 
 function handleProfileEditSubmit() {
@@ -129,18 +130,7 @@ profileEditButton.addEventListener("click", () => {
 const name = cardTitleInput.value;
 const link = cardUrlInput.value;
 
-function handleAddCardSubmit(data) {
-  api
-    .createCard(data.name, data.link)
-    .then((results) => {
-      const card = createCard(results);
-      cardSection.addItem(card);
-    })
-    .catch((err) => {
-      console.error(`The error is ${err}`);
-    });
-  popupWithAddForm.close();
-}
+
 
 addNewCardButton.addEventListener("click", () => {
   popupWithAddForm.open();
@@ -174,15 +164,21 @@ const popupWithAddForm = new PopupWithForm(
   handleAddCardSubmit
 );
 
+const popupWithDeleteForm = new PopUpWithConfirm(
+  "#delete-card-modal",
+  deleteCardSubmit
+);
+
 popupWithEditForm.setEventListeners();
 popupWithAddForm.setEventListeners();
+popupWithDeleteForm.setEventListeners();
 
 const cardSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
       const card = createCard(item);
-      cardSection.addItem(card);
+      cardSection.addItem(card);``` 1`
     },
   },
   ".cards__list"
@@ -213,53 +209,50 @@ api
 
 api
   .getUserInfo()
-<<<<<<< HEAD
-  .then((result) => {})
-  .catch((err) => {
-    console.error(err);
-  });
-
-api.updateUserInfo();
-
-api
-  .createCard({name:cardTitleInput.value,link:cardUrlInput.value})
-  .then((results) => {
-    console.log(results);
-=======
   .then((data) => {
     userData.setUserInfo(data.name, data.about);
->>>>>>> 511365b5299f7bcd199bcbc715f355fa29fc9d76
   })
   .catch((err) => {
     console.error(err); // log the error to the console
   });
 
-function deleteCardSubmit(id) {
+  function handleAddCardSubmit(data) {
+    api
+      .createCard(data.name, data.link)
+      .then((results) => {
+        const card = createCard(results);
+        cardSection.addItem(card);
+      })
+      .catch((err) => {
+        console.error(`The error is ${err}`);
+      });
+    popupWithAddForm.close();
+  }
+
+function deleteCardSubmit(data) {
   api
-    .deleteCard(id)
+    .deleteCard(data.id)
     .then((id) => {
       console.log(id);
+      popupWithDeleteForm.handleDeleteCard(data.id);
     })
     .catch((err) => {
       console.error(err);
     });
 }
 
-const deleteCardPopUp = new PopUpWithForm(
-  "#delete-card-modal",
-  deleteCardSubmit
-);
+
 
 
 
 function handleDeleteClick(card){
-  deleteCardPopUp.open(card._id)
-  deleteCardPopUp.setSubmitAction(() => {
-    deleteCardSubmit(card._id)
-  })
+  popupWithDeleteForm.open(card._id);
+  console.log(card._id)
 }
 
-deleteCardButton.addEventListener("click", () => {
 
-  deleteCardPopUp.close();  
-});
+
+/* deleteCardButton.addEventListener("click", () => {
+
+  popupWithDeleteForm.close();  
+}); */

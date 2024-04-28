@@ -11,9 +11,9 @@ export default class PopUpWithForm extends PopUp {
 
     //PopupWithConfirm
 //setSubmitAction(fn) {
-  //this._handleFormSubmit = fn
-}
+  //this._handleFormSubmit = fn 
   }
+  
 
   close() {
     this._popupForm.reset();
