@@ -17,16 +17,7 @@ export default class Api {
       method: "GET",
     }).then(this._checkResponse);
   }
-  updateUserInfo(name, about) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({
-        name: name,
-        about: about,
-      }),
-    }).then(this._checkResponse);
-  }
+ 
 
   createCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
@@ -39,7 +30,28 @@ export default class Api {
     }).then(this._checkResponse);
   }
 
-  updateUserAvatar() {}
+  updateUserInfo(name, about) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        about: about,
+      }),
+    }).then(this._checkResponse);
+  }
+
+  updateUserAvatar(avatar) {
+    console.log(avatar)
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: avatar,
+      })
+      
+    }).then(this._checkResponse);
+  }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers }).then(
@@ -57,8 +69,22 @@ export default class Api {
     .then(console.log("Card has been deleted"))
   }
 
-  likeCard() {}
+  likeCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    })
+    .then(this._checkResponse)
+    .then(console.log("Card has been liked"))
 
-  dislikeCard() {}
-  // other methods for working with the API
+  }
+
+  dislikeCard(id) {
+  return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+    method: "DELETE",
+    headers: this._headers,
+  })
+  .then(this._checkResponse)
+  .then(console.log("Card has been disliked"))
+}
 }

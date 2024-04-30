@@ -1,10 +1,9 @@
 import PopUp from "./PopUp.js";
 
 export default class PopUpWithConfirm extends PopUp{
-    constructor(popupSelector, handleFormSubmit) {
+    constructor(popupSelector) {
         super({popupSelector});
         this._popupForm = this._popupElement.querySelector(".modal__form");
-        this._handleFormSubmit = handleFormSubmit;
         this._cardElement = document.querySelector(".card");
 }
 
@@ -13,14 +12,18 @@ close() {
     super.close();
   }
 
-  handleDeleteCard(data) {
-    this._cardElement.remove(data.id);
-    this._cardElement = null;
+  open(handleDeleteSubmit) {
+    this._handleDeleteSubmit = handleDeleteSubmit;
+    super.open();
+    
   }
 
 
 setEventListeners() {
     super.setEventListeners();;
-  
+    this._popupForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleDeleteSubmit();
+    });
   }
 }

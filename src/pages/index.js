@@ -6,7 +6,6 @@ import UserInfo from "../components/Userinfo.js";
 import Section from "../components/Section.js";
 import "../pages/index.css";
 import Api from "../components/Api.js";
-import PopUp from "../components/PopUp.js";
 import PopUpWithForm from "../components/PopupWithForm.js";
 import PopUpWithConfirm from "../components/PopUpWithConfirm.js";
 
@@ -43,21 +42,25 @@ const cardTemplate =
 //Wrappers
 const profileEditModal = document.querySelector("#edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
+const avatarUpdateModal = document.querySelector("#edit-avatar-modal");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addCardForm = addCardModal.querySelector(".modal__form");
+const avatarUpdateForm = avatarUpdateModal.querySelector(".modal__form");
+
 
 //Buttons and DOM nodes
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
 const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
 const addNewCardButton = document.querySelector(".profile__add-button");
+const avatarUpdateButton = document.querySelector(".profile__image");
 //Form Data
 
 const cardTitleInput = addCardForm.querySelector("#card-name-input");
 const cardUrlInput = addCardForm.querySelector("#card-link-input");
+const avatarUrlInput = avatarUpdateForm.querySelector("#avatar-link-input");
 
-const deleteModalButton = document.querySelector(".card__delete-button");
-const deleteCardButton = document.querySelector(".modal-delete-button");
+
 //validation
 const validationSettings = {
   formSelector: ".modal__form",
@@ -76,16 +79,24 @@ const api = new Api({
   },
 });
 
+const avatarCardPopUp = new PopUpWithForm("#edit-avatar-modal", handleAvatarSubmit);
+
+avatarCardPopUp.setEventListeners();
+
 const editFormValidator = new FormValidator(
   validationSettings,
   profileEditForm
 );
 const addFormValidator = new FormValidator(validationSettings, addCardForm);
+const updateAvatarValidator = new FormValidator(validationSettings, avatarUpdateForm);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 editFormValidator.disableButton();
 addFormValidator.disableButton();
+updateAvatarValidator.enableValidation();
+updateAvatarValidator.disableButton();
+
 
 /* const closeModal = (modalWindow) => {
   modalWindow.classList.remove("modal_open");
@@ -93,30 +104,42 @@ addFormValidator.disableButton();
 }; */
 
 function createCard(item) {
-  const cardElement = new Card(item, "#card-template", handleCardClick,handleDeleteClick);
+  const cardElement = new Card(item, "#card-template", handleCardClick,handleDeleteClick, handleLikeClick);
   return cardElement.getView();
 }
 
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
-
+const avatar = document.querySelector(".profile__image");
 const profileNameInput = document.querySelector("#profile-name-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
 /* deleteModalButton.addEventListener("click", () => {
- popupWithDeleteForm.open()
+ deleteCardPopUp.open()
 
 }) */
 
-/* const popupWithDeleteForm = new PopupWithForm("#delete-card-modal");
+/* const deleteCardPopUp = new PopupWithForm("#delete-card-modal");
 console.log(deleteModalButton); */
 
 function handleProfileEditSubmit() {
   userData.setUserInfo(profileNameInput.value, profileDescriptionInput.value);
   api.updateUserInfo(profileNameInput.value, profileDescriptionInput.value);
   popupWithEditForm.close();
+}
+
+function handleAvatarSubmit(){
+  api.updateUserAvatar(avatarUrlInput.value)
+  .then((data) => {
+    console.log('iAPI image', data)
+  document.querySelector(".profile__image").src = data.avatar
+})
+  .catch((err) => {
+    console.error(`The error is ${err}`);
+  });
+  avatarCardPopUp.close()
 }
 
 profileEditButton.addEventListener("click", () => {
@@ -130,7 +153,18 @@ profileEditButton.addEventListener("click", () => {
 const name = cardTitleInput.value;
 const link = cardUrlInput.value;
 
-
+function handleAddCardSubmit(data) {
+  api
+    .createCard(data.name, data.link)
+    .then((results) => {
+      const card = createCard(results);
+      cardSection.addItem(card);
+    })
+    .catch((err) => {
+      console.error(`The error is ${err}`);
+    });
+  popupWithAddForm.close();
+}
 
 addNewCardButton.addEventListener("click", () => {
   popupWithAddForm.open();
@@ -164,14 +198,8 @@ const popupWithAddForm = new PopupWithForm(
   handleAddCardSubmit
 );
 
-const popupWithDeleteForm = new PopUpWithConfirm(
-  "#delete-card-modal",
-  deleteCardSubmit
-);
-
 popupWithEditForm.setEventListeners();
 popupWithAddForm.setEventListeners();
-popupWithDeleteForm.setEventListeners();
 
 const cardSection = new Section(
   {
@@ -184,7 +212,7 @@ const cardSection = new Section(
   ".cards__list"
 );
 
-const userData = new UserInfo(profileName, profileDescription);
+const userData = new UserInfo(profileName, profileDescription, avatar);
 
 api
   .getInitialCards()
@@ -210,49 +238,62 @@ api
 api
   .getUserInfo()
   .then((data) => {
-    userData.setUserInfo(data.name, data.about);
+    userData.setUserInfo(data.name, data.about, data.avatar);
   })
   .catch((err) => {
     console.error(err); // log the error to the console
   });
 
-  function handleAddCardSubmit(data) {
-    api
-      .createCard(data.name, data.link)
-      .then((results) => {
-        const card = createCard(results);
-        cardSection.addItem(card);
-      })
-      .catch((err) => {
-        console.error(`The error is ${err}`);
-      });
-    popupWithAddForm.close();
-  }
 
-function deleteCardSubmit(data) {
-  api
-    .deleteCard(data.id)
-    .then((id) => {
-      console.log(id);
-      popupWithDeleteForm.handleDeleteCard(data.id);
+
+const deleteCardPopUp = new PopUpWithConfirm(
+  "#delete-card-modal",
+  deleteCardSubmit
+);
+
+
+
+avatarUpdateButton.addEventListener("click", () => {
+  avatarCardPopUp.open();
+});
+
+function handleLikeClick(card) {
+  console.log(card)
+  if (card.isLiked()){
+    api.dislikeCard(card._id)
+    .then(() => {
+      card.handleLikeIcon()
     })
-    .catch((err) => {
-      console.error(err);
-    });
+  }
+  else {
+    api.likeCard(card._id)
+    .then(() => {
+    card.handleLikeIcon()
+  })
 }
-
+}
 
 
 
 
 function handleDeleteClick(card){
-  popupWithDeleteForm.open(card._id);
-  console.log(card._id)
+  deleteCardPopUp.open(() => {deleteCardSubmit(card)})
+ 
 }
 
+function deleteCardSubmit(card) {
+  
+  api
+    .deleteCard(card._id)
+    .then(() => {
+      card.handleDeleteCard()
+      deleteCardPopUp.close();;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+    
+}
 
+deleteCardPopUp.setEventListeners();
 
-/* deleteCardButton.addEventListener("click", () => {
-
-  popupWithDeleteForm.close();  
-}); */
