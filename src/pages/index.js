@@ -143,9 +143,8 @@ function handleAvatarSubmit(){
 }
 
 profileEditButton.addEventListener("click", () => {
-  popupWithEditForm.open();
+   popupWithEditForm.open()
   const userProfile = userData.getUserInfo();
-  console.log(">>User Profile", userProfile);
   profileNameInput.value = userProfile.name;
   profileDescriptionInput.value = userProfile.job;
 });
@@ -258,17 +257,19 @@ avatarUpdateButton.addEventListener("click", () => {
 });
 
 function handleLikeClick(card) {
-  console.log(card)
-  if (card.isLiked()){
+  console.log(card._isLiked)
+  if (card.isLiked){
     api.dislikeCard(card._id)
     .then(() => {
       card.handleLikeIcon()
+      card.isLiked = false
     })
   }
-  else {
+  if (!card.isLiked){
     api.likeCard(card._id)
     .then(() => {
     card.handleLikeIcon()
+    card.isLiked = true
   })
 }
 }

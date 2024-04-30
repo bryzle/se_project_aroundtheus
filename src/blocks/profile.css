@@ -23,6 +23,7 @@
   border-width: 1px;
 }
 
+
 .profile__edit-button:hover {
   cursor: pointer;
   opacity: 0.6;
@@ -79,6 +80,43 @@
   object-fit: cover;
   background-position: center;
   margin-right: 30px;
+}
+
+.profile__avatar-overlay{
+  position:relative;
+  transition: .5s ease;
+  opacity:0;
+}
+
+.profile__picture-container{
+  display:flex;
+}
+
+.profile__picture-container:hover .profile__avatar-overlay{
+  cursor:pointer;
+  opacity:1;
+}
+
+.profile__picture-container:hover .profile__image{
+  cursor:pointer;
+  opacity:.2;
+
+}
+
+.profile__avatar-button{
+  background: transparent url("../images/Avatar\ Edit.svg") center no-repeat;
+  height: 26px;
+  width: 26px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  right:100px;
+  top:50px;
+}
+
+.profile__image:hover {
+  cursor: pointer;
+  opacity:.6;
 }
 
 @media screen and (max-width: 520px) {
