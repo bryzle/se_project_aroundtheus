@@ -31,9 +31,7 @@ export default class PopUpWithForm extends PopUp {
       event.preventDefault();
       const formData = this._getInputValues();
       this._handleFormSubmit(this._getInputValues());
-      /* this._popupButton.textContent = "Saving..." */;
     })
-    /* this._popupButton.textContent="Save" */;
   
   }
 }

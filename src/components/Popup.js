@@ -14,9 +14,9 @@ export default class PopUp {
   }
 
   _handleEscClose(evt) {
-    if (evt.key === "Escape") {
-      this.close();
+    if (evt.keyCode === 27) {
       console.log("escape key");
+      this.close();
     }
   }
   _cardClickClose(evt) {
@@ -32,8 +32,9 @@ export default class PopUp {
 
     this._popupElement.addEventListener("click", (evt) => {
       this._cardClickClose(evt);
-      }
-    );
-   
+      });
+    this._popupElement.addEventListener("click", (evt) => {
+      this._handleEscClose(evt);
+      });
   }
 }
