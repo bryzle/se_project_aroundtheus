@@ -34,9 +34,19 @@ export default class Card {
   }
 
   handleLikeIcon() {
+    
     this._cardElement
       .querySelector(".card__like-button")
-      .classList.toggle("card__like-button_active");
+      .classList.toggle("card__like-button_active")
+  }
+  _toggleLike(){
+
+    if (this._isLiked){
+      this._cardElement.querySelector(".card__like-button").classList.add("card__like-button_active")
+    }
+    else {
+      this._cardElement.querySelector(".card__like-button").classList.remove("card__like-button_active")
+    }
   }
 
   handleDeleteCard() {
@@ -61,6 +71,7 @@ export default class Card {
     this._cardTitleEl.textContent = this._name;
     this._cardImageEl.alt = this._name;
     this._setEventListeners();
+    this._toggleLike();
     return this._cardElement;
   }
 }

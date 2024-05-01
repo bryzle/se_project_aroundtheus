@@ -124,22 +124,33 @@ const profileDescriptionInput = document.querySelector(
 /* const deleteCardPopUp = new PopupWithForm("#delete-card-modal");
 console.log(deleteModalButton); */
 
-function handleProfileEditSubmit() {
-  userData.setUserInfo(profileNameInput.value, profileDescriptionInput.value);
-  api.updateUserInfo(profileNameInput.value, profileDescriptionInput.value);
+function handleProfileEditSubmit(userData) {
+  popupWithEditForm.submitLoading(true)
+  
+  api.updateUserInfo(userData.name, userData.job)
+  .then((user) => {userData.setUserInfo(user);})
+  .catch((err) => {console.log(err)})
+  .finally (() => {popupWithEditForm.submitLoading(false)}) 
+  editFormValidator.disableButton();
   popupWithEditForm.close();
+
 }
 
 function handleAvatarSubmit(){
+  avatarCardPopUp.submitLoading(true)
   api.updateUserAvatar(avatarUrlInput.value)
   .then((data) => {
     console.log('iAPI image', data)
+    .catch((err) => {console.log(err)})
+    .finally(() => {avatarCardPopUp.submitLoading(false)})
   document.querySelector(".profile__image").src = data.avatar
 })
   .catch((err) => {
     console.error(`The error is ${err}`);
   });
   avatarCardPopUp.close()
+  updateAvatarValidator.disableButton();
+  avatarCardPopUp.submitLoading(false)
 }
 
 profileEditButton.addEventListener("click", () => {
@@ -153,6 +164,7 @@ const name = cardTitleInput.value;
 const link = cardUrlInput.value;
 
 function handleAddCardSubmit(data) {
+  popupWithAddForm.submitLoading(true)
   api
     .createCard(data.name, data.link)
     .then((results) => {
@@ -161,8 +173,12 @@ function handleAddCardSubmit(data) {
     })
     .catch((err) => {
       console.error(`The error is ${err}`);
+    })
+    .finally(() => {
+      popupWithAddForm.submitLoading(false);
     });
   popupWithAddForm.close();
+  addFormValidator.disableButton();
 }
 
 addNewCardButton.addEventListener("click", () => {
@@ -226,7 +242,6 @@ api
       },
       ".cards__list"
     );
-
     const cardList = cardSection.renderItems();
   })
 
@@ -258,18 +273,20 @@ avatarUpdateButton.addEventListener("click", () => {
 
 function handleLikeClick(card) {
   console.log(card._isLiked)
-  if (card.isLiked){
+  if (card._isLiked){
     api.dislikeCard(card._id)
     .then(() => {
+      console.log(card._id)
       card.handleLikeIcon()
-      card.isLiked = false
+      card._isLiked = false
     })
   }
-  if (!card.isLiked){
+  if (!card._isLiked){
     api.likeCard(card._id)
     .then(() => {
+      console.log(card._id)
     card.handleLikeIcon()
-    card.isLiked = true
+    card._isLiked = true
   })
 }
 }

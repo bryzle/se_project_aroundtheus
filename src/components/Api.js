@@ -38,7 +38,9 @@ export default class Api {
         name: name,
         about: about,
       }),
-    }).then(this._checkResponse);
+    }).then(this._checkResponse)
+      .then((res) => {console.log(res)})
+      .catch((err) => {console.log(err)});
   }
 
   updateUserAvatar(avatar) {

@@ -1,4 +1,4 @@
-import PopUp from "./PopUp.js";
+import PopUp from "./Popup.js";
 
 export default class PopUpWithForm extends PopUp {
   constructor(popupSelector, handleFormSubmit) {
@@ -25,12 +25,21 @@ export default class PopUpWithForm extends PopUp {
     return formValues;
   }
 
+  submitLoading(isLoading) {
+    if (isLoading) {
+      this._popupButton.textContent = "Saving...";
+    } else {
+      this._popupButton.textContent = "Save";
+    }
+  }
+
   setEventListeners() {
     super.setEventListeners();
     this._popupForm.addEventListener("submit", (event) => {
       event.preventDefault();
       const formData = this._getInputValues();
       this._handleFormSubmit(this._getInputValues());
+      ;
     })
   
   }
