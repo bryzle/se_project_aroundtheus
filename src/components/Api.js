@@ -13,11 +13,14 @@ export default class Api {
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-      method: "GET",
-    }).then(this._checkResponse);
+      headers: this._headers
+    }).then(this._checkResponse)
+    .then((res) => {console.log(res); return res;})
+    .catch((err) => {
+      console.log(err);
+    }); 
+
   }
- 
 
   createCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
@@ -38,21 +41,26 @@ export default class Api {
         name: name,
         about: about,
       }),
-    }).then(this._checkResponse)
-      .then((res) => {console.log(res)})
-      .catch((err) => {console.log(err)});
+    })
+      .then(this._checkResponse)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  updateUserAvatar(avatar) {
-    console.log(avatar)
+  updateUserAvatar(link) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: avatar,
-      })
+        avatar: link,
+      }),
       
-    }).then(this._checkResponse);
+    }).then(this._checkResponse)
+    console.log(link);
   }
 
   getInitialCards() {
@@ -62,13 +70,12 @@ export default class Api {
   }
 
   deleteCard(id) {
-
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
     })
-    .then(this._checkResponse)
-    .then(console.log("Card has been deleted"))
+      .then(this._checkResponse)
+      .then(console.log("Card has been deleted"));
   }
 
   likeCard(id) {
@@ -76,17 +83,16 @@ export default class Api {
       method: "PUT",
       headers: this._headers,
     })
-    .then(this._checkResponse)
-    .then(console.log("Card has been liked"))
-
+      .then(this._checkResponse)
+      .then(console.log("Card has been liked"));
   }
 
   dislikeCard(id) {
-  return fetch(`${this._baseUrl}/cards/${id}/likes`, {
-    method: "DELETE",
-    headers: this._headers,
-  })
-  .then(this._checkResponse)
-  .then(console.log("Card has been disliked"))
-}
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+      .then(this._checkResponse)
+      .then(console.log("Card has been disliked"));
+  }
 }
