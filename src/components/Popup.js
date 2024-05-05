@@ -20,7 +20,6 @@ export default class PopUp {
       this.close();
 
     }
-
   }
 
 
@@ -38,6 +37,6 @@ export default class PopUp {
     this._popupElement.addEventListener("click", (evt) => {
       this._cardClickClose(evt);
       });
-    this._popupElement.addEventListener("keydown", (evt) => {this._handleEscClose});
+
   }
 }

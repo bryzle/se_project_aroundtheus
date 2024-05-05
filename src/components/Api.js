@@ -15,11 +15,6 @@ export default class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     }).then(this._checkResponse)
-    .then((res) => {console.log(res); return res;})
-    .catch((err) => {
-      console.log(err);
-    }); 
-
   }
 
   createCard(name, link) {
@@ -43,12 +38,7 @@ export default class Api {
       }),
     })
       .then(this._checkResponse)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      
   }
 
   updateUserAvatar(link) {
@@ -60,7 +50,6 @@ export default class Api {
       }),
       
     }).then(this._checkResponse)
-    console.log(link);
   }
 
   getInitialCards() {
@@ -95,4 +84,7 @@ export default class Api {
       .then(this._checkResponse)
       .then(console.log("Card has been disliked"));
   }
+
+ 
+  
 }

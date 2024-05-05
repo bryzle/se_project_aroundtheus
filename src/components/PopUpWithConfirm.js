@@ -4,11 +4,9 @@ export default class PopUpWithConfirm extends PopUp{
     constructor(popupSelector) {
         super({popupSelector});
         this._popupForm = this._popupElement.querySelector(".modal__form");
-        this._cardElement = document.querySelector(".card");
 }
 
 close() {
-    this._popupForm.reset();
     super.close();
   }
 
