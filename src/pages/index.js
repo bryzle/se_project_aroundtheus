@@ -56,7 +56,7 @@ const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
 const addNewCardButton = document.querySelector(".profile__add-button");
 const avatarUpdateButton = document.querySelector(".profile__image");
 //Form Data
-
+const trashButton = document.querySelector(".card__delete-button");
 const cardTitleInput = addCardForm.querySelector("#card-name-input");
 const cardUrlInput = addCardForm.querySelector("#card-link-input");
 const avatarUrlInput = avatarUpdateForm.querySelector("#avatar-link-input");
@@ -103,7 +103,7 @@ function createCard(item) {
     item,
     "#card-template",
     handleCardClick,
-    handleDeleteClick,
+    deleteCardSubmit,
     handleLikeClick
   );
   return cardElement.getView();
@@ -177,8 +177,6 @@ function handleAddCardSubmit(data) {
     .createCard(data.name, data.link)
     .then((results) => {
       const card = createCard(results);
-      console.log(card);
-      console.log(results);
       cardSection.addItem(card);
     })
     .catch((err) => {
@@ -251,9 +249,11 @@ api
   });
 
 const deleteCardPopUp = new PopUpWithConfirm(
-  "#delete-card-modal",
-  deleteCardSubmit
+  "#delete-card-modal"
 );
+
+deleteCardPopUp.setEventListeners();
+
 
 avatarUpdateButton.addEventListener("click", () => {
   avatarCardPopUp.open();
@@ -280,14 +280,13 @@ function handleLikeClick(card) {
   }
 }
 
-function handleDeleteClick(card) {
-  deleteCardPopUp.open(() => {
-    deleteCardSubmit(card);
-  });
-  
-}
+
+
 
 function deleteCardSubmit(card) {
+  deleteCardPopUp.open();
+  console.log(card._id)
+  deleteCardPopUp.handleDelete(() => {
   api
     .deleteCard(card._id)
     .then(() => {
@@ -297,6 +296,6 @@ function deleteCardSubmit(card) {
     .catch((err) => {
       console.error(err);
     });
+  })
 }
 
-deleteCardPopUp.setEventListeners();

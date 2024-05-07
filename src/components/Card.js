@@ -22,7 +22,7 @@ export default class Card {
     );
 
     this._trashbutton.addEventListener("click", () =>
-      this._handleDeleteClick(this)
+      this._handleDeleteClick(this) 
     );
 
     this._cardImageEl.addEventListener("click", () =>
@@ -55,7 +55,7 @@ export default class Card {
 
     this._cardTitleEl = this._cardElement.querySelector(".card__title");
     this._likebutton = this._cardElement.querySelector(".card__like-button");
-    this._trashbutton = this._cardElement.querySelector(".modal-delete-button");
+    this._trashbutton = this._cardElement.querySelector(".card__delete-button");
     this._cardImageEl.src = this._link;
     this._cardTitleEl.textContent = this._name;
     this._cardImageEl.alt = this._name;
