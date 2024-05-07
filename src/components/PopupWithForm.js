@@ -8,8 +8,7 @@ export default class PopUpWithForm extends PopUp {
     this._inputEls = Array.from(
       this._popupForm.querySelectorAll(".modal__input"));
     this._submitBtn = this._popupForm.querySelector(".modal__button");
-    this._submitBtnText = this._submitBtn.textContent;
-  }
+      }
   
 
   close() {
@@ -28,9 +27,9 @@ export default class PopUpWithForm extends PopUp {
 
   renderLoading(isLoading, loadingtext ="Saving...") {
     if (isLoading) {
-      this._submitBtnText = loadingtext;
+      this._submitBtn.textContent = "Saving";
     } else {
-      this._submitBtnText = this._submitBtnText;
+      this._submitBtn.textContent = "Save";
     }
   }
 

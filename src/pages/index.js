@@ -47,7 +47,8 @@ const addCardModal = document.querySelector("#add-card-modal");
 const profileEditForm = document.forms["profile__form"];
 const addCardForm = addCardModal.querySelector(".modal__form");
 const avatarUpdateForm = document.forms["avatar__form"];
-
+const deleteCardForm = document.forms["modal__delete-form"];
+const modalDeleteBtn = deleteCardForm.querySelector(".modal-delete-button");
 //Buttons and DOM nodes
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
@@ -176,6 +177,8 @@ function handleAddCardSubmit(data) {
     .createCard(data.name, data.link)
     .then((results) => {
       const card = createCard(results);
+      console.log(card);
+      console.log(results);
       cardSection.addItem(card);
     })
     .catch((err) => {
@@ -216,10 +219,11 @@ popupWithAddForm.setEventListeners();
 
 const userData = new UserInfo(profileName, profileDescription, avatar);
 
+let cardSection;
 api
   .getInitialCards()
   .then((cardData) => {
-    const cardSection = new Section(
+     cardSection = new Section(
       {
         items: cardData,
         renderer: (item) => {
@@ -280,6 +284,7 @@ function handleDeleteClick(card) {
   deleteCardPopUp.open(() => {
     deleteCardSubmit(card);
   });
+  
 }
 
 function deleteCardSubmit(card) {
