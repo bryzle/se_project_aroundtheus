@@ -8,9 +8,9 @@ export default class Card {
   ) {
     this._name = data.name;
     this._link = data.link;
-    this._id = data.id;
+    this._id = data._id;
     this._isLiked = data.isLiked;
-    this._cardSelector = cardSelector; // cardSelector = "#card-template"
+    this._cardSelector = cardSelector; // cardSelector = "g#card-template"
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._handleLikeClick = handleLikeClick;
@@ -34,7 +34,7 @@ export default class Card {
     this._likebutton.classList.toggle("card__like-button_active");
   }
   _toggleLike() {
-    if (this.isLiked) {
+    if (this._isLiked) {
       this._likebutton.classList.add("card__like-button_active");
     } else {
       this._likebutton.classList.remove("card__like-button_active");
