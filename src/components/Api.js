@@ -64,7 +64,7 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-      .then(console.log("Card has been deleted"));
+      .then(()=>console.log("Card has been deleted"));
   }
 
   likeCard(id) {
@@ -73,7 +73,7 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-      .then(console.log("Card has been liked"));
+      .then(()=>console.log("Card has been liked"));
   }
 
   dislikeCard(id) {
@@ -82,7 +82,7 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-      .then(console.log("Card has been disliked"));
+      .then(()=>console.log("Card has been disliked"));
   }
 
  
