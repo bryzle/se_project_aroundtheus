@@ -1,8 +1,8 @@
 import Card from "../components/card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopUpWithImage from "../components/PopupWithImage.js";
-import UserInfo from "../components/Userinfo.js";
+import PopUpWithImage from "../components/PopUpWithImage.js";
+import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import "../pages/index.css";
 import Api from "../components/Api.js";
@@ -94,6 +94,7 @@ function handleProfileEditSubmit(userProfile) {
     })
     .then(() => {
       editFormValidator.disableButton();
+      popUpWithEditForm.close();
     })
     .catch((err) => {
       console.log(err);
@@ -101,21 +102,20 @@ function handleProfileEditSubmit(userProfile) {
     .finally(() => {
       popUpWithEditForm.renderLoading(false);
     });
-
-  popUpWithEditForm.close();
 }
 
 function handleAvatarSubmit(data) {
   avatarCardPopUp.renderLoading(true);
-
+  
   api
-    .updateUserAvatar(avatarUrlInput.value)
+    .updateUserAvatar(data.link)
     .then((res) => {
       userData.setUserAvatar(res.avatar);
     })
     .then(() => {
       console.log("Avatar has been updated");
       updateAvatarValidator.disableButton();
+      avatarCardPopUp.close();
     })
     .catch((err) => {
       console.error(err);
@@ -124,7 +124,7 @@ function handleAvatarSubmit(data) {
       avatarCardPopUp.renderLoading(false);
     });
 
-  avatarCardPopUp.close();
+  
 }
 
 profileEditButton.addEventListener("click", () => {
@@ -143,6 +143,8 @@ function handleAddCardSubmit(data) {
     .then((results) => {
       const card = createCard(results);
       cardSection.addItem(card);
+      popUpWithAddForm.close();
+      addFormValidator.disableButton();
     })
     .catch((err) => {
       console.error(`The error is ${err}`);
@@ -150,8 +152,8 @@ function handleAddCardSubmit(data) {
     .finally(() => {
       popUpWithAddForm.renderLoading(false);
     });
-  popUpWithAddForm.close();
-  addFormValidator.disableButton();
+  
+  
 }
 
 addNewCardButton.addEventListener("click", () => {

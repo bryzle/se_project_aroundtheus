@@ -1,4 +1,4 @@
-import PopUp from "./Popup.js";
+import PopUp from "./PopUp.js";
 
 export default class PopUpWithForm extends PopUp {
   constructor(popUpSelector, handleFormSubmit) {
@@ -27,7 +27,7 @@ export default class PopUpWithForm extends PopUp {
 
   renderLoading(isLoading) {
     if (isLoading) {
-      this._submitBtn.textContent = "Saving";
+      this._submitBtn.textContent = "Saving...";
     } else {
       this._submitBtn.textContent = "Save";
     }
