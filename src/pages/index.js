@@ -1,12 +1,12 @@
 import Card from "../components/card.js";
 import FormValidator from "../components/FormValidator.js";
-import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithForm from "../components/PopUpWithForm.js";
 import PopUpWithImage from "../components/PopUpWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import "../pages/index.css";
 import Api from "../components/Api.js";
-import PopUpWithForm from "../components/PopupWithForm.js";
+import PopUpWithForm from "../components/PopUpWithForm.js";
 import PopUpWithConfirm from "../components/PopUpWithConfirm.js";
 import { validationSettings } from "../utils/Constants.js";
 
