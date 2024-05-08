@@ -8,38 +8,9 @@ import "../pages/index.css";
 import Api from "../components/Api.js";
 import PopUpWithForm from "../components/PopupWithForm.js";
 import PopUpWithConfirm from "../components/PopUpWithConfirm.js";
-
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountain",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
-
 import { validationSettings } from "../utils/Constants.js";
 
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
+
 //
 //Wrappers
 const profileEditModal = document.querySelector("#edit-modal");
@@ -54,7 +25,7 @@ const profileEditButton = document.querySelector("#profile-edit-button");
 const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
 const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
 const addNewCardButton = document.querySelector(".profile__add-button");
-const avatarUpdateButton = document.querySelector(".profile__image");
+const avatarUpdateButton = document.querySelector(".profile__avatar-button");
 //Form Data
 const trashButton = document.querySelector(".card__delete-button");
 const cardTitleInput = addCardForm.querySelector("#card-name-input");
@@ -93,10 +64,6 @@ addFormValidator.disableButton();
 updateAvatarValidator.enableValidation();
 updateAvatarValidator.disableButton();
 
-/* const closeModal = (modalWindow) => {
-  modalWindow.classList.remove("modal_open");
-  document.removeEventListener("keydown", handleEscapeKey);
-}; */
 
 function createCard(item) {
   const cardElement = new Card(
@@ -118,7 +85,7 @@ const profileDescriptionInput = document.querySelector(
 );
 
 function handleProfileEditSubmit(userProfile) {
-  popupWithEditForm.renderLoading(true);
+  popUpWithEditForm.renderLoading(true);
 
   api
     .updateUserInfo(userProfile.name, userProfile.link)
@@ -132,10 +99,10 @@ function handleProfileEditSubmit(userProfile) {
       console.log(err);
     })
     .finally(() => {
-      popupWithEditForm.renderLoading(false);
+      popUpWithEditForm.renderLoading(false);
     });
 
-  popupWithEditForm.close();
+  popUpWithEditForm.close();
 }
 
 function handleAvatarSubmit(data) {
@@ -161,18 +128,16 @@ function handleAvatarSubmit(data) {
 }
 
 profileEditButton.addEventListener("click", () => {
-  popupWithEditForm.open();
+  popUpWithEditForm.open();
   const userProfile = userData.getUserInfo();
   profileNameInput.value = userProfile.name;
   profileDescriptionInput.value = userProfile.job;
   
 });
 
-const name = cardTitleInput.value;
-const link = cardUrlInput.value;
 
 function handleAddCardSubmit(data) {
-  popupWithAddForm.renderLoading(true);
+  popUpWithAddForm.renderLoading(true);
   api
     .createCard(data.name, data.link)
     .then((results) => {
@@ -183,14 +148,14 @@ function handleAddCardSubmit(data) {
       console.error(`The error is ${err}`);
     })
     .finally(() => {
-      popupWithAddForm.renderLoading(false);
+      popUpWithAddForm.renderLoading(false);
     });
-  popupWithAddForm.close();
+  popUpWithAddForm.close();
   addFormValidator.disableButton();
 }
 
 addNewCardButton.addEventListener("click", () => {
-  popupWithAddForm.open();
+  popUpWithAddForm.open();
 });
 
 
@@ -201,18 +166,18 @@ function handleCardClick(name, link) {
   return popUpImageElement.open(name, link);
 }
 
-const popupWithEditForm = new PopupWithForm(
+const popUpWithEditForm = new PopupWithForm(
   "#edit-modal",
   handleProfileEditSubmit
 );
 
-const popupWithAddForm = new PopupWithForm(
+const popUpWithAddForm = new PopupWithForm(
   "#add-card-modal",
   handleAddCardSubmit
 );
 
-popupWithEditForm.setEventListeners();
-popupWithAddForm.setEventListeners();
+popUpWithEditForm.setEventListeners();
+popUpWithAddForm.setEventListeners();
 
 
 const userData = new UserInfo(profileName, profileDescription, avatar);
@@ -231,7 +196,7 @@ api
       },
       ".cards__list"
     );
-    const cardList = cardSection.renderItems();
+    cardSection.renderItems();
   })
 
   .catch((err) => {
@@ -260,11 +225,12 @@ avatarUpdateButton.addEventListener("click", () => {
 });
 
 function handleLikeClick(card) {
+  console.log(card)
   if (card.isLiked) {
     api.dislikeCard(card._id).then(() => {
       
       card.handleLikeIcon();
-      card._isLiked = false;
+      card.isLiked = false;
     })
     .catch((err) => {console.error(err);})
   }
@@ -272,7 +238,7 @@ function handleLikeClick(card) {
     api.likeCard(card._id).then(() => {
     
       card.handleLikeIcon();
-      card._isLiked = true;
+      card.isLiked = true;
     })
     .catch((err) => {
       console.error(err);
